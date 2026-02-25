@@ -871,7 +871,24 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   color: var(--muted);
   font-weight: 300;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+.event-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: gap 0.3s var(--ease);
+}
+.event-read-more:hover { gap: 0.7rem; }
 
 /* ─── CTA BAND ─── */
 .cta-band {
@@ -1723,6 +1740,9 @@ document.querySelectorAll('.booking-tab').forEach(tab => {
             <div class="event-tag">${ev.tag || ''}</div>
             <h3>${ev.title}</h3>
             <p>${ev.description || ''}</p>
+            <a href="event.html?id=${ev._id}" class="event-read-more">
+              Les mer <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>`;
     }).join('');

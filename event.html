@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrangement — Festiviteten Larvik</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; color: #1A1A1A; background: #FFFAF7; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --blush: #E2BAA8;
+  --blush-light: #F5E6DD;
+  --blush-pale: #FBF3EF;
+  --cream: #FFFAF7;
+  --charcoal: #1A1A1A;
+  --warm-black: #0D0B09;
+  --gold: #C4956A;
+  --gold-light: #D4AB84;
+  --ink: #2C2420;
+  --muted: #7A6E66;
+  --white: #FFFFFF;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.5rem 0;
+  transition: all 0.4s var(--ease);
+}
+nav.scrolled {
+  background: rgba(255,250,247,0.92);
+  backdrop-filter: blur(12px);
+  padding: 1rem 0;
+  box-shadow: 0 1px 0 rgba(194,149,106,0.15);
+}
+nav .container { display: flex; align-items: center; }
+.nav-logo { margin-right: auto; }
+.nav-logo-img { height: 28px; filter: brightness(0) invert(1); transition: filter 0.4s; }
+nav.scrolled .nav-logo-img { filter: none; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  transition: color 0.3s;
+  position: relative;
+}
+nav.scrolled .nav-links a { color: var(--charcoal); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--gold-light); }
+nav.scrolled .nav-links a:hover { color: var(--gold); }
+.nav-book {
+  padding: 0.6rem 1.4rem !important;
+  background: var(--gold);
+  color: var(--white) !important;
+  font-weight: 600 !important;
+  transition: background 0.3s, transform 0.3s !important;
+}
+.nav-book:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+.nav-book::after { display: none !important; }
+.nav-toggle { display: none; }
+
+/* ─── HERO ─── */
+.event-hero {
+  height: 55vh;
+  min-height: 380px;
+  position: relative;
+  overflow: hidden;
+  background: var(--warm-black);
+}
+.event-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+.event-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(13,11,9,0.2) 0%, rgba(13,11,9,0.6) 100%);
+}
+.event-hero-date {
+  position: absolute;
+  bottom: 2.5rem;
+  left: clamp(1.5rem, 4vw, 3rem);
+  background: var(--white);
+  padding: 0.75rem 1rem;
+  text-align: center;
+  line-height: 1;
+}
+.event-hero-date .day {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  display: block;
+}
+.event-hero-date .month {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 3px;
+  display: block;
+}
+
+/* ─── CONTENT ─── */
+.event-content {
+  padding: 5rem 0 8rem;
+}
+.event-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  transition: color 0.3s, gap 0.3s var(--ease);
+}
+.event-back:hover { color: var(--gold); gap: 0.8rem; }
+.event-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.event-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--charcoal);
+  margin-bottom: 1.5rem;
+}
+.section-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 3rem;
+}
+.event-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 4rem;
+  align-items: start;
+}
+.event-body-text {
+  font-size: 1rem;
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.8;
+}
+.event-body-text p + p { margin-top: 1.25rem; }
+
+/* ─── INFO CARD ─── */
+.event-info-card {
+  background: var(--white);
+  border: 1px solid var(--blush-light);
+  padding: 2rem;
+  position: sticky;
+  top: 6rem;
+}
+.event-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--blush-light);
+}
+.event-info-row:first-child { padding-top: 0; }
+.event-info-row:last-of-type { border-bottom: none; }
+.event-info-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.event-info-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+.event-info-value {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--charcoal);
+}
+.btn-ticket {
+  display: block;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--gold);
+  color: var(--white);
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 0.3s var(--ease), transform 0.3s;
+}
+.btn-ticket:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* ─── LOADING / ERROR ─── */
+.event-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: background 0.3s; }
+  nav.scrolled .nav-toggle span { background: var(--charcoal); }
+  .event-layout { grid-template-columns: 1fr; }
+  .event-info-card { position: static; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="https://josteinliverod.github.io/festiviteten-website/assets/images/festiviteten%20logo%20sekundær.svg" alt="Festiviteten" class="nav-logo-img">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#pillars">Opplev</a></li>
+      <li><a href="index.html#ellings">Ellings</a></li>
+      <li><a href="index.html#rooms">Lokaler</a></li>
+      <li><a href="index.html#offices">Kontorer</a></li>
+      <li><a href="index.html#events">Hva skjer</a></li>
+      <li><a href="index.html#kontakt">Kontakt</a></li>
+      <li><a href="index.html#booking" class="nav-book">Booking</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ CONTENT ═══ -->
+<div id="app">
+  <div class="event-loading">Laster arrangement…</div>
+</div>
+
+<script>
+const projectId = 'bjm2vjzp';
+const dataset = 'production';
+const months = ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+
+function sanityImgUrl(ref) {
+  if (!ref) return '';
+  const parts = ref.split('-');
+  parts.shift();
+  const ext = parts.pop();
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${parts.join('-')}.${ext}`;
+}
+
+function renderBlocks(blocks) {
+  if (!blocks || !blocks.length) return '';
+  return blocks
+    .filter(b => b._type === 'block')
+    .map(b => `<p>${(b.children || []).map(c => c.text || '').join('')}</p>`)
+    .join('');
+}
+
+function renderEvent(ev) {
+  if (!ev) {
+    document.getElementById('app').innerHTML = '<div class="event-loading">Arrangementet ble ikke funnet.</div>';
+    return;
+  }
+
+  document.title = `${ev.title} — Festiviteten Larvik`;
+
+  const d = new Date(ev.date);
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  const month = months[d.getUTCMonth()];
+  const fullDate = `${d.getUTCDate()}. ${['januar','februar','mars','april','mai','juni','juli','august','september','oktober','november','desember'][d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const imgUrl = ev.image ? sanityImgUrl(ev.image.asset._ref) + '?w=1400&q=85&auto=format' : '';
+
+  const heroHtml = imgUrl
+    ? `<img class="event-hero-img" src="${imgUrl}" alt="${ev.title}">`
+    : '';
+
+  const bodyHtml = ev.body ? renderBlocks(ev.body) : (ev.description ? `<p>${ev.description}</p>` : '');
+
+  const infoRows = [
+    ev.date ? `<div class="event-info-row">
+      <div class="event-info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div><div class="event-info-label">Dato</div><div class="event-info-value">${fullDate}</div></div>
+    </div>` : '',
+    ev.startTime ? `<div class="event-info-row">
+      <div class="event-info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div><div class="event-info-label">Starttidspunkt</div><div class="event-info-value">${ev.startTime}</div></div>
+    </div>` : '',
+    ev.location ? `<div class="event-info-row">
+      <div class="event-info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div><div class="event-info-label">Sted</div><div class="event-info-value">${ev.location}</div></div>
+    </div>` : '',
+    ev.price ? `<div class="event-info-row">
+      <div class="event-info-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <div><div class="event-info-label">Pris</div><div class="event-info-value">${ev.price}</div></div>
+    </div>` : '',
+  ].filter(Boolean).join('');
+
+  const ticketBtn = ev.ticketUrl
+    ? `<a href="${ev.ticketUrl}" target="_blank" rel="noopener" class="btn-ticket">Kjøp billett / Meld deg på</a>`
+    : '';
+
+  document.getElementById('app').innerHTML = `
+    <div class="event-hero">
+      ${heroHtml}
+      <div class="event-hero-overlay"></div>
+      <div class="event-hero-date">
+        <span class="day">${day}</span>
+        <span class="month">${month}</span>
+      </div>
+    </div>
+
+    <section class="event-content">
+      <div class="container">
+        <a href="index.html#events" class="event-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Tilbake til arrangementer
+        </a>
+        <div class="event-eyebrow">${ev.tag || 'Arrangement'}</div>
+        <h1 class="event-title">${ev.title}</h1>
+        <div class="section-divider"></div>
+        <div class="event-layout">
+          <div class="event-body-text">
+            ${bodyHtml || '<p>Mer informasjon kommer.</p>'}
+          </div>
+          <div class="event-info-card">
+            ${infoRows}
+            ${ticketBtn}
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Fetch event by ID from URL
+const id = new URLSearchParams(window.location.search).get('id');
+if (!id) {
+  document.getElementById('app').innerHTML = '<div class="event-loading">Ingen arrangement-ID oppgitt.</div>';
+} else {
+  const query = encodeURIComponent(`*[_type == "event" && _id == "${id}"][0]`);
+  fetch(`https://${projectId}.apicdn.sanity.io/v2021-10-21/data/query/${dataset}?query=${query}`)
+    .then(r => r.json())
+    .then(data => renderEvent(data.result))
+    .catch(() => {
+      document.getElementById('app').innerHTML = '<div class="event-loading">Kunne ikke laste arrangementet.</div>';
+    });
+}
+</script>
+
+</body>
+</html>

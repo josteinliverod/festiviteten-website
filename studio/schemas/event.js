@@ -43,6 +43,36 @@ export default {
       type: 'image',
       options: { hotspot: true },
     },
+    {
+      name: 'body',
+      title: 'Fullt innhold',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Utvidet beskrivelse som vises på arrangementssiden',
+    },
+    {
+      name: 'price',
+      title: 'Pris',
+      type: 'string',
+      placeholder: 'f.eks. 199,- eller Gratis',
+    },
+    {
+      name: 'startTime',
+      title: 'Starttidspunkt',
+      type: 'string',
+      placeholder: 'f.eks. 19:00',
+    },
+    {
+      name: 'location',
+      title: 'Sted',
+      type: 'string',
+      placeholder: 'f.eks. Festsalen',
+    },
+    {
+      name: 'ticketUrl',
+      title: 'Billett- / påmeldingslenke',
+      type: 'url',
+    },
   ],
   orderings: [
     {
