@@ -665,6 +665,39 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   text-transform: uppercase;
 }
 
+/* ─── TENANT LOGOS ─── */
+.tenant-logos {
+  margin-top: 4rem;
+  text-align: center;
+}
+.tenant-logos-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+.tenant-logos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: center;
+}
+.tenant-logos-grid img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: grayscale(100%);
+  transition: opacity 0.3s, filter 0.3s;
+}
+.tenant-logos-grid img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
 /* ─── BOOKING ─── */
 .booking {
   padding: 8rem 0;
@@ -1215,7 +1248,7 @@ footer {
   <div class="container">
     <div class="section-header reveal">
       <div class="section-eyebrow">Kontorfellesskap</div>
-      <h2 class="section-title">Kontorer på <em>Festiviteten</em></h2>
+      <h2 class="section-title">Kontor på <em>Festiviteten</em></h2>
       <div class="section-divider"></div>
     </div>
     <div class="offices-layout">
@@ -1238,6 +1271,22 @@ footer {
           <h3>Free seating</h3>
           <p>Mye på farten, men trenger en plass av og til? Book en arbeidsplass på dag eller ukebasis. Fleksibelt og inspirerende.</p>
         </div>
+      </div>
+    </div>
+    <div class="tenant-logos reveal">
+      <p class="tenant-logos-label">Noen av våre leietakere</p>
+      <div class="tenant-logos-grid">
+        <img src="assets/images/tenant-logos/cegal.png" alt="Cegal">
+        <img src="assets/images/tenant-logos/nho.webp" alt="NHO">
+        <img src="assets/images/tenant-logos/asplan_viak.png" alt="Asplan Viak">
+        <img src="assets/images/tenant-logos/appfabrikken.png" alt="Appfabrikken">
+        <img src="assets/images/tenant-logos/rg_fjellsikring.png" alt="RG Fjellsikring">
+        <img src="assets/images/tenant-logos/ta_takst.png" alt="TA Takst">
+        <img src="assets/images/tenant-logos/ace_options.png" alt="Ace Options">
+        <img src="assets/images/tenant-logos/umoe.png" alt="Umoe">
+        <img src="assets/images/tenant-logos/identigo.png" alt="Identigo">
+        <img src="assets/images/tenant-logos/lysnes.png" alt="Lysnes">
+        <img src="assets/images/tenant-logos/storevik_it.png" alt="Storevik IT">
       </div>
     </div>
   </div>
