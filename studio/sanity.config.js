@@ -8,7 +8,7 @@ export default defineConfig({
   title: 'Festiviteten Larvik',
 
   // ⚠️ Replace with your Sanity Project ID from sanity.io/manage
-  projectId: 'YOUR_PROJECT_ID',
+  projectId: 'bjm2vjzp',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
