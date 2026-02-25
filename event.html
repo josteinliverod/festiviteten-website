@@ -380,7 +380,8 @@ function renderEvent(ev) {
   `;
 }
 
-// Nav scroll effect
+// Nav is always in scrolled state on this page (no dark hero behind it)
+document.getElementById('nav').classList.add('scrolled');
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
 });
