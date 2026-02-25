@@ -84,11 +84,11 @@ nav.scrolled .nav-links a:hover { color: var(--gold); }
 
 /* ─── HERO ─── */
 .event-hero {
-  height: 55vh;
-  min-height: 380px;
+  height: 480px;
   position: relative;
   overflow: hidden;
   background: var(--warm-black);
+  margin-bottom: 2.5rem;
 }
 .event-hero-img {
   width: 100%;
@@ -103,8 +103,8 @@ nav.scrolled .nav-links a:hover { color: var(--gold); }
 }
 .event-hero-date {
   position: absolute;
-  bottom: 2.5rem;
-  left: clamp(1.5rem, 4vw, 3rem);
+  bottom: 1.75rem;
+  left: 1.75rem;
   background: var(--white);
   padding: 0.75rem 1rem;
   text-align: center;
@@ -349,21 +349,20 @@ function renderEvent(ev) {
     : '';
 
   document.getElementById('app').innerHTML = `
-    <div class="event-hero">
-      ${heroHtml}
-      <div class="event-hero-overlay"></div>
-      <div class="event-hero-date">
-        <span class="day">${day}</span>
-        <span class="month">${month}</span>
-      </div>
-    </div>
-
     <section class="event-content">
       <div class="container">
         <a href="index.html#events" class="event-back">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Tilbake til arrangementer
         </a>
+        ${imgUrl ? `<div class="event-hero">
+          ${heroHtml}
+          <div class="event-hero-overlay"></div>
+          <div class="event-hero-date">
+            <span class="day">${day}</span>
+            <span class="month">${month}</span>
+          </div>
+        </div>` : ''}
         <div class="event-eyebrow">${ev.tag || 'Arrangement'}</div>
         <h1 class="event-title">${ev.title}</h1>
         <div class="section-divider"></div>
