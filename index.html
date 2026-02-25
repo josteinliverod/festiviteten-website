@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festiviteten Larvik — Jobbe · Spise · Feire · Møtes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── VARIABLES ─── */
+:root {
+  --blush: #E2BAA8;
+  --blush-light: #F5E6DD;
+  --blush-pale: #FBF3EF;
+  --cream: #FFFAF7;
+  --charcoal: #1A1A1A;
+  --warm-black: #0D0B09;
+  --gold: #C4956A;
+  --gold-light: #D4AB84;
+  --ink: #2C2420;
+  --muted: #7A6E66;
+  --white: #FFFFFF;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--sans);
+  color: var(--charcoal);
+  background: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { border: none; cursor: pointer; font-family: inherit; }
+
+/* ─── UTILITY ─── */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleReveal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to { width: 60px; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease-out);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.25rem 0;
+  transition: all 0.5s var(--ease);
+}
+nav.scrolled {
+  background: rgba(255, 250, 247, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.75rem 0;
+  box-shadow: 0 1px 0 rgba(194, 149, 106, 0.15);
+}
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.nav-logo svg { width: 32px; height: 32px; }
+.nav-logo span {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  transition: color 0.5s var(--ease);
+}
+nav.scrolled .nav-logo span { color: var(--charcoal); }
+nav.scrolled .nav-logo svg path { stroke: var(--charcoal); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s var(--ease);
+}
+.nav-links a:hover::after { width: 100%; }
+nav.scrolled .nav-links a { color: var(--charcoal); }
+.nav-book {
+  padding: 0.65rem 1.75rem;
+  background: var(--gold);
+  color: var(--white) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 0;
+  transition: all 0.3s var(--ease);
+}
+.nav-book::after { display: none !important; }
+.nav-book:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* Mobile nav */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  transition: all 0.3s;
+}
+nav.scrolled .nav-toggle span { background: var(--charcoal); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--warm-black);
+}
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.05);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+.hero-video.loaded { opacity: 1; }
+.hero-bg .hero-fallback {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=85&auto=format') center/cover no-repeat;
+  transition: opacity 1.5s ease;
+}
+.hero-video.loaded ~ .hero-fallback { opacity: 0; }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13,11,9,0.25) 0%, rgba(13,11,9,0.35) 40%, rgba(13,11,9,0.6) 100%);
+  z-index: 1;
+}
+.hero-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(196,149,106,0.08) 0%, transparent 60%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  animation: fadeUp 1.2s var(--ease-out) 0.3s both;
+}
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold-light);
+  animation: lineGrow 1s var(--ease) 0.8s both;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--blush);
+}
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.35s var(--ease);
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,149,106,0.3); }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.35s var(--ease);
+}
+.btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: fadeIn 1s var(--ease) 1.5s both;
+}
+.hero-scroll .line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+  animation: shimmer 2s ease infinite;
+}
+
+/* ─── SECTION HEADER ─── */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.section-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.15;
+}
+.section-title em { font-style: italic; font-weight: 400; }
+.section-divider {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem auto 0;
+}
+
+/* ─── PILLARS (Et sted å...) ─── */
+.pillars {
+  padding: 8rem 0;
+  background: var(--blush-pale);
+  position: relative;
+}
+.pillars::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blush), transparent);
+}
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.pillar-card {
+  position: relative;
+  height: 420px;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  group: true;
+}
+.pillar-card .pillar-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.8s var(--ease), filter 0.5s;
+}
+.pillar-card:hover .pillar-img { transform: scale(1.06); }
+.pillar-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,11,9,0.75) 0%, rgba(13,11,9,0.1) 50%, rgba(13,11,9,0.05) 100%);
+  transition: background 0.5s;
+}
+.pillar-card:hover::after {
+  background: linear-gradient(to top, rgba(13,11,9,0.85) 0%, rgba(13,11,9,0.2) 50%, rgba(13,11,9,0.1) 100%);
+}
+.pillar-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 2rem 1.5rem;
+}
+.pillar-label {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.pillar-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease), opacity 0.5s;
+  opacity: 0;
+}
+.pillar-card:hover .pillar-desc { max-height: 80px; opacity: 1; }
+.pillar-arrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s var(--ease) 0.1s;
+}
+.pillar-card:hover .pillar-arrow { opacity: 1; transform: translateY(0); }
+
+/* ─── ROOMS ─── */
+.rooms {
+  padding: 8rem 0;
+  background: var(--cream);
+}
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 1.5rem;
+}
+.room-card {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.room-card.featured { grid-row: span 2; }
+.room-img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.room-card.featured .room-img { min-height: 580px; }
+.room-card:hover .room-img { transform: scale(1.04); }
+.room-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,11,9,0.7) 0%, transparent 50%);
+  transition: background 0.4s;
+}
+.room-card:hover .room-overlay {
+  background: linear-gradient(to top, rgba(13,11,9,0.85) 0%, rgba(13,11,9,0.1) 60%);
+}
+.room-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+}
+.room-name {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.35rem;
+}
+.room-detail {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+}
+.room-capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.8rem;
+  background: rgba(196,149,106,0.2);
+  border: 1px solid rgba(196,149,106,0.3);
+  color: var(--gold-light);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+/* ─── RESTAURANT ─── */
+.restaurant {
+  padding: 8rem 0;
+  background: var(--warm-black);
+  position: relative;
+  overflow: hidden;
+}
+.restaurant::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,149,106,0.06) 0%, transparent 70%);
+}
+.restaurant-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.restaurant-text .section-eyebrow { color: var(--gold-light); text-align: left; }
+.restaurant-text .section-title { color: var(--white); text-align: left; }
+.restaurant-text .section-divider { margin: 1.5rem 0 0; }
+.restaurant-desc {
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+}
+.restaurant-hours {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2.5rem;
+}
+.hours-block h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.hours-block p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+}
+.restaurant-cta {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1rem;
+}
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.35s var(--ease);
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(196,149,106,0.3);
+  color: var(--gold-light);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: all 0.35s var(--ease);
+}
+.btn-ghost:hover { border-color: var(--gold); }
+.restaurant-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.restaurant-images img {
+  width: 100%;
+  border-radius: 2px;
+}
+.restaurant-images .tall { grid-row: span 2; height: 100%; object-fit: cover; }
+.restaurant-images .short { height: 100%; object-fit: cover; }
+
+/* ─── OFFICES ─── */
+.offices {
+  padding: 8rem 0;
+  background: var(--blush-pale);
+}
+.offices-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+.office-card {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--white);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s;
+}
+.office-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+.office-card-img {
+  height: 280px;
+  overflow: hidden;
+}
+.office-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.office-card:hover .office-card-img img { transform: scale(1.05); }
+.office-card-body { padding: 2rem; }
+.office-card-body h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.office-card-body p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.office-tag {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background: var(--blush-light);
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ─── BOOKING ─── */
+.booking {
+  padding: 8rem 0;
+  background: var(--cream);
+}
+.booking-wrapper {
+  background: var(--white);
+  border: 1px solid rgba(196,149,106,0.15);
+  padding: 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+.booking-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--gold);
+}
+.booking-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.booking-tab {
+  padding: 1rem 2rem;
+  background: none;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.booking-tab.active { color: var(--charcoal); border-bottom-color: var(--gold); }
+.booking-tab:hover { color: var(--charcoal); }
+
+.booking-form { display: none; }
+.booking-form.active { display: block; animation: fadeUp 0.5s var(--ease); }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.form-row.full { grid-template-columns: 1fr; }
+.form-group label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--cream);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--charcoal);
+  transition: border-color 0.3s;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; }
+
+.btn-submit {
+  width: 100%;
+  padding: 1.1rem;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.35s var(--ease);
+  margin-top: 0.5rem;
+}
+.btn-submit:hover { background: var(--gold-light); }
+
+/* ─── EVENTS ─── */
+.events {
+  padding: 8rem 0;
+  background: var(--blush-pale);
+}
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.event-card {
+  background: var(--white);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s;
+}
+.event-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); }
+.event-img {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+.event-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+.event-card:hover .event-img img { transform: scale(1.05); }
+.event-date {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--white);
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  line-height: 1;
+}
+.event-date .day {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  display: block;
+}
+.event-date .month {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 2px;
+  display: block;
+}
+.event-body { padding: 1.5rem; }
+.event-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.event-body h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.event-body p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ─── CTA BAND ─── */
+.cta-band {
+  padding: 6rem 0;
+  background:
+    linear-gradient(135deg, rgba(13,11,9,0.85), rgba(44,36,32,0.9)),
+    url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=85&auto=format') center/cover no-repeat;
+  text-align: center;
+}
+.cta-band h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.cta-band p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+.cta-band .btn-gold { display: inline-flex; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 5rem 0 3rem;
+  background: var(--warm-black);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+.footer-brand .nav-logo { margin-bottom: 1.5rem; }
+.footer-brand .nav-logo span { color: var(--white); }
+.footer-brand p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 280px;
+}
+.footer-col h4 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.75rem; }
+.footer-col a {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  font-weight: 300;
+}
+.footer-socials { display: flex; gap: 1.5rem; }
+.footer-socials a {
+  color: rgba(255,255,255,0.4);
+  transition: color 0.3s;
+  font-size: 0.85rem;
+}
+.footer-socials a:hover { color: var(--gold-light); }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,11,9,0.7);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.modal-overlay.show { display: flex; opacity: 1; }
+.modal {
+  background: var(--white);
+  max-width: 560px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 3rem;
+  position: relative;
+  animation: scaleReveal 0.4s var(--ease-out);
+}
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  font-size: 1.5rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.3s;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--charcoal); }
+.modal h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+.modal p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+.modal .success-msg {
+  text-align: center;
+  padding: 2rem 0;
+}
+.modal .success-msg svg { margin: 0 auto 1rem; }
+.modal .success-msg h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .rooms-grid { grid-template-columns: 1fr 1fr; }
+  .room-card.featured { grid-row: span 1; }
+  .room-card.featured .room-img { min-height: 320px; }
+  .restaurant-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    padding: 2rem;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .nav-links.open a { color: var(--charcoal) !important; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .pillar-card { height: 300px; }
+  .pillar-desc { max-height: 80px; opacity: 1; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .offices-layout { grid-template-columns: 1fr; }
+  .events-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .booking-wrapper { padding: 2.5rem 1.5rem; }
+  .booking-tabs { flex-wrap: wrap; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .hero-ctas { flex-direction: column; }
+  .restaurant-images { grid-template-columns: 1fr; }
+  .restaurant-hours { flex-direction: column; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4L28 28M28 4L4 28M16 2V30M2 16H30" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>Festiviteten</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#pillars">Opplev</a></li>
+      <li><a href="#ellings">Ellings</a></li>
+      <li><a href="#rooms">Lokaler</a></li>
+      <li><a href="#offices">Kontorer</a></li>
+      <li><a href="#events">Hva skjer</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#booking" class="nav-book">Booking</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg">
+    <!--
+      ╔══════════════════════════════════════════════════════╗
+      ║  BYTT UT VIDEO: Erstatt src under med din egen URL  ║
+      ║  Støtter .mp4 og .webm — bruk helst 1080p+         ║
+      ╚══════════════════════════════════════════════════════╝
+    -->
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto"
+      poster="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1920&q=85&auto=format">
+      <source src="YOUR_VIDEO_URL_HERE.mp4" type="video/mp4">
+    </video>
+    <div class="hero-fallback"></div>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Storgata 33, Larvik</div>
+      <h1>Velkommen til<br><em>Festiviteten</em></h1>
+      <p class="hero-sub">Byens storstue — midt i Larvik. Et sted å jobbe, spise og feire. Festiviteten er skapt for å møtes.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book nå
+        </a>
+        <a href="#pillars" class="btn-outline">
+          Utforsk huset
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ═══ PILLARS ═══ -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Et sted å ...</div>
+      <h2 class="section-title">Jobbe, feire, spise & <em>møtes</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card reveal reveal-delay-1" onclick="location.href='#offices'">
+        <div class="pillar-img" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80&auto=format')"></div>
+        <div class="pillar-content">
+          <div class="pillar-label">Jobbe</div>
+          <div class="pillar-desc">Co-working, free seating og faste kontorplasser i et inspirerende historisk hus.</div>
+          <div class="pillar-arrow">Les mer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="pillar-card reveal reveal-delay-2">
+        <div class="pillar-img" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80&auto=format')"></div>
+        <div class="pillar-content">
+          <div class="pillar-label">Feire</div>
+          <div class="pillar-desc">Festsalen er skapt for de store anledningene — bryllup, jubileum og selskaper.</div>
+          <div class="pillar-arrow">Les mer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="pillar-card reveal reveal-delay-3" onclick="location.href='#ellings'">
+        <div class="pillar-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80&auto=format')"></div>
+        <div class="pillar-content">
+          <div class="pillar-label">Spise</div>
+          <div class="pillar-desc">Ellings har åpent hver dag fra kl. 11 til sent — lunsj, middag og drikke.</div>
+          <div class="pillar-arrow">Les mer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="pillar-card reveal reveal-delay-4" onclick="location.href='#rooms'">
+        <div class="pillar-img" style="background-image:url('https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=800&q=80&auto=format')"></div>
+        <div class="pillar-content">
+          <div class="pillar-label">Møtes</div>
+          <div class="pillar-desc">Vi har rom for de viktige møtene — moderne teknikk i historiske rammer.</div>
+          <div class="pillar-arrow">Les mer <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROOMS ═══ -->
+<section class="rooms" id="rooms">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Lokaler</div>
+      <h2 class="section-title">Våre <em>møtelokaler</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card featured reveal">
+        <img class="room-img" src="https://images.unsplash.com/photo-1564069114553-7215e1ff1890?w=900&q=80&auto=format" alt="Festsalen">
+        <div class="room-overlay"></div>
+        <div class="room-info">
+          <h3 class="room-name">Festsalen</h3>
+          <p class="room-detail">Norges tredje eldste festsal — for konferanse, bryllup og fest</p>
+          <span class="room-capacity">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            Opptil 130 personer
+          </span>
+        </div>
+      </div>
+      <div class="room-card reveal reveal-delay-1">
+        <img class="room-img" src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?w=600&q=80&auto=format" alt="Borgemesteren">
+        <div class="room-overlay"></div>
+        <div class="room-info">
+          <h3 class="room-name">Borgemesteren</h3>
+          <p class="room-detail">Flott styrerom med klassisk atmosfære</p>
+          <span class="room-capacity">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            Opptil 15 personer
+          </span>
+        </div>
+      </div>
+      <div class="room-card reveal reveal-delay-2">
+        <img class="room-img" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&q=80&auto=format" alt="Kemneren">
+        <div class="room-overlay"></div>
+        <div class="room-info">
+          <h3 class="room-name">Kemneren</h3>
+          <p class="room-detail">Fleksibelt møterom med moderne utstyr</p>
+          <span class="room-capacity">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            Opptil 25 personer
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RESTAURANT ═══ -->
+<section class="restaurant" id="ellings">
+  <div class="container">
+    <div class="restaurant-layout">
+      <div class="restaurant-text reveal">
+        <div class="section-eyebrow">Restaurant</div>
+        <h2 class="section-title">Ellings</h2>
+        <div class="section-divider"></div>
+        <p class="restaurant-desc">
+          I hjertet av Festiviteten finner du Ellings — en uformell og sjarmerende restaurant med fokus på gode råvarer, bærekraftige valg og smakfulle opplevelser. Perfekt for lunsj, middag, eller bare en kaffe med utsikt.
+        </p>
+        <div class="restaurant-hours">
+          <div class="hours-block">
+            <h4>Mandag — Fredag</h4>
+            <p>11:00 — 23:00</p>
+          </div>
+          <div class="hours-block">
+            <h4>Lørdag — Søndag</h4>
+            <p>12:00 — 23:00</p>
+          </div>
+        </div>
+        <div class="restaurant-cta">
+          <a href="#booking" class="btn-gold">Reserver bord</a>
+          <a href="#" class="btn-ghost">Se menyen</a>
+        </div>
+      </div>
+      <div class="restaurant-images reveal reveal-delay-2">
+        <img class="tall" src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80&auto=format" alt="Ellings interiør">
+        <img class="short" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80&auto=format" alt="Mat fra Ellings">
+        <img class="short" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&q=80&auto=format" alt="Drikke">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OFFICES ═══ -->
+<section class="offices" id="offices">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Kontorfellesskap</div>
+      <h2 class="section-title">Kontorer på <em>Festiviteten</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="offices-layout">
+      <div class="office-card reveal">
+        <div class="office-card-img">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80&auto=format" alt="Fast kontorplass">
+        </div>
+        <div class="office-card-body">
+          <span class="office-tag">Fast plass</span>
+          <h3>Fast kontorplass</h3>
+          <p>Mye på jobb og trenger eget kontor? På Festiviteten har vi kontorer i ulike størrelser — for små og store bedrifter. Bli en del av miljøet!</p>
+        </div>
+      </div>
+      <div class="office-card reveal reveal-delay-2">
+        <div class="office-card-img">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=80&auto=format" alt="Free seating">
+        </div>
+        <div class="office-card-body">
+          <span class="office-tag">Fleksibel</span>
+          <h3>Free seating</h3>
+          <p>Mye på farten, men trenger en plass av og til? Book en arbeidsplass på dag eller ukebasis. Fleksibelt og inspirerende.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTS ═══ -->
+<section class="events" id="events">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Hva skjer</div>
+      <h2 class="section-title">Kommende <em>arrangementer</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-img">
+          <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&q=80&auto=format" alt="Konsert">
+          <div class="event-date"><span class="day">15</span><span class="month">Mar</span></div>
+        </div>
+        <div class="event-body">
+          <div class="event-tag">Konsert</div>
+          <h3>Jazzkveld i Festsalen</h3>
+          <p>En magisk aften med norske jazzmusikere i historiske rammer.</p>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-1">
+        <div class="event-img">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format" alt="Konferanse">
+          <div class="event-date"><span class="day">22</span><span class="month">Mar</span></div>
+        </div>
+        <div class="event-body">
+          <div class="event-tag">Konferanse</div>
+          <h3>Fremtidens Arbeidsplass</h3>
+          <p>Heldagskonferanse om fremtidens arbeidsliv med ledende foredragsholdere.</p>
+        </div>
+      </div>
+      <div class="event-card reveal reveal-delay-2">
+        <div class="event-img">
+          <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=600&q=80&auto=format" alt="Matfestival">
+          <div class="event-date"><span class="day">05</span><span class="month">Apr</span></div>
+        </div>
+        <div class="event-body">
+          <div class="event-tag">Mat & Drikke</div>
+          <h3>Smak av Vestfold</h3>
+          <p>Lokale produsenter viser frem det beste fra regionen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BOOKING ═══ -->
+<section class="booking" id="booking">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Booking</div>
+      <h2 class="section-title">Reserver <em>din plass</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="booking-wrapper reveal">
+      <div class="booking-tabs">
+        <button class="booking-tab active" data-tab="selskap">Selskap</button>
+        <button class="booking-tab" data-tab="moterom">Møterom</button>
+        <button class="booking-tab" data-tab="restaurant">Restaurant</button>
+        <button class="booking-tab" data-tab="kontor">Kontor</button>
+      </div>
+
+      <!-- Selskap -->
+      <div class="booking-form active" id="form-selskap">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ditt navn</label>
+            <input type="text" placeholder="Fullt navn">
+          </div>
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" placeholder="din@epost.no">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+47 xxx xx xxx">
+          </div>
+          <div class="form-group">
+            <label>Ønsket dato</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type arrangement</label>
+            <select>
+              <option value="">Velg type</option>
+              <option>Bryllup</option>
+              <option>Jubileum</option>
+              <option>Firmafest</option>
+              <option>Bursdag</option>
+              <option>Annet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Antall gjester</label>
+            <input type="number" placeholder="ca. antall">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Melding</label>
+            <textarea placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="showConfirmation(this)">Send forespørsel</button>
+      </div>
+
+      <!-- Møterom -->
+      <div class="booking-form" id="form-moterom">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ditt navn</label>
+            <input type="text" placeholder="Fullt navn">
+          </div>
+          <div class="form-group">
+            <label>Bedrift</label>
+            <input type="text" placeholder="Bedriftsnavn">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" placeholder="din@epost.no">
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+47 xxx xx xxx">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ønsket lokale</label>
+            <select>
+              <option value="">Velg lokale</option>
+              <option>Festsalen (130 pers)</option>
+              <option>Borgemesteren (15 pers)</option>
+              <option>Kemneren (25 pers)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dato</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fra klokken</label>
+            <input type="time" value="09:00">
+          </div>
+          <div class="form-group">
+            <label>Til klokken</label>
+            <input type="time" value="16:00">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Spesielle behov</label>
+            <textarea placeholder="Trengs AV-utstyr, catering, eller annet?"></textarea>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="showConfirmation(this)">Book møterom</button>
+      </div>
+
+      <!-- Restaurant -->
+      <div class="booking-form" id="form-restaurant">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ditt navn</label>
+            <input type="text" placeholder="Fullt navn">
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+47 xxx xx xxx">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Dato</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>Tidspunkt</label>
+            <select>
+              <option value="">Velg tid</option>
+              <option>11:00</option>
+              <option>11:30</option>
+              <option>12:00</option>
+              <option>12:30</option>
+              <option>13:00</option>
+              <option>17:00</option>
+              <option>17:30</option>
+              <option>18:00</option>
+              <option>18:30</option>
+              <option>19:00</option>
+              <option>19:30</option>
+              <option>20:00</option>
+              <option>20:30</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Antall gjester</label>
+            <select>
+              <option>1 person</option>
+              <option>2 personer</option>
+              <option>3 personer</option>
+              <option>4 personer</option>
+              <option>5 personer</option>
+              <option>6 personer</option>
+              <option>7 personer</option>
+              <option>8+ personer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" placeholder="din@epost.no">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Spesielle ønsker</label>
+            <textarea placeholder="Allergier, ønsker, eller spesielle anledninger..."></textarea>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="showConfirmation(this)">Reserver bord</button>
+      </div>
+
+      <!-- Kontor -->
+      <div class="booking-form" id="form-kontor">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ditt navn</label>
+            <input type="text" placeholder="Fullt navn">
+          </div>
+          <div class="form-group">
+            <label>Bedrift</label>
+            <input type="text" placeholder="Bedriftsnavn">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" placeholder="din@epost.no">
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+47 xxx xx xxx">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type kontor</label>
+            <select>
+              <option value="">Velg type</option>
+              <option>Fast kontorplass</option>
+              <option>Free seating — dagsbasis</option>
+              <option>Free seating — ukebasis</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ønsket oppstart</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Melding</label>
+            <textarea placeholder="Fortell oss om dine behov..."></textarea>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="showConfirmation(this)">Send forespørsel</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="container reveal">
+    <h2>Planlegger du noe <em>spesielt</em>?</h2>
+    <p>Ta kontakt med oss for en uforpliktende prat om ditt arrangement</p>
+    <a href="mailto:hei@festivitetenlarvik.no" class="btn-gold">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Kontakt oss
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="kontakt">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4L28 28M28 4L4 28M16 2V30M2 16H30" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>Festiviteten</span>
+        </a>
+        <p>Byens storstue — midt i Larvik. Et sted å jobbe, spise, feire og møtes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Besøk oss</h4>
+        <ul>
+          <li><a href="#">Storgata 33</a></li>
+          <li><a href="#">3256 Larvik</a></li>
+          <li><a href="mailto:hei@festivitetenlarvik.no">hei@festivitetenlarvik.no</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="#ellings">Ellings Restaurant</a></li>
+          <li><a href="#rooms">Møtelokaler</a></li>
+          <li><a href="#offices">Kontorer</a></li>
+          <li><a href="#events">Arrangementer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Praktisk</h4>
+        <ul>
+          <li><a href="#booking">Booking</a></li>
+          <li><a href="#">Kjøpsvilkår</a></li>
+          <li><a href="#">Personvern</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Festiviteten Larvik. Alle rettigheter reservert.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ CONFIRMATION MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="success-msg">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="28" r="27" stroke="#C4956A" stroke-width="2"/>
+        <path d="M18 28l7 7 13-13" stroke="#C4956A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Takk for din henvendelse!</h3>
+      <p>Vi har mottatt din forespørsel og tar kontakt med deg innen kort tid. Ha en fin dag!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Hero video load handler
+const heroVideo = document.getElementById('heroVideo');
+if (heroVideo) {
+  heroVideo.addEventListener('canplaythrough', () => {
+    heroVideo.classList.add('loaded');
+  });
+  // Fallback: if already loaded (cached)
+  if (heroVideo.readyState >= 4) {
+    heroVideo.classList.add('loaded');
+  }
+  // Pause video when not visible for performance
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        heroVideo.play().catch(() => {});
+      } else {
+        heroVideo.pause();
+      }
+    });
+  }, { threshold: 0.1 });
+  videoObserver.observe(heroVideo);
+}
+
+// ─── Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// ─── Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  });
+});
+
+// ─── Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// ─── Booking tabs
+document.querySelectorAll('.booking-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.booking-form').forEach(f => f.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('form-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ─── Booking confirmation
+function showConfirmation(btn) {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeModal();
+});
+</script>
+
+</body>
+</html>
