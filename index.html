@@ -723,31 +723,8 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   height: 3px;
   background: var(--gold);
 }
-.booking-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 3rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-.booking-tab {
-  padding: 1rem 2rem;
-  background: none;
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border-bottom: 2px solid transparent;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.booking-tab.active { color: var(--charcoal); border-bottom-color: var(--gold); }
-.booking-tab:hover { color: var(--charcoal); }
-
 .booking-fields { display: none; }
-.booking-fields.active { display: block; animation: fadeUp 0.5s var(--ease); }
+.booking-fields.active { display: block; }
 
 .form-row {
   display: grid;
@@ -1334,15 +1311,20 @@ footer {
       <div class="section-divider"></div>
     </div>
     <div class="booking-wrapper reveal">
-      <div class="booking-tabs">
-        <button class="booking-tab active" data-tab="selskap">Selskap</button>
-        <button class="booking-tab" data-tab="moterom">Møterom</button>
-        <button class="booking-tab" data-tab="restaurant">Restaurant</button>
-        <button class="booking-tab" data-tab="kontor">Kontor</button>
-      </div>
-
       <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
-        <input type="hidden" id="bookingType" name="type" value="selskap">
+
+        <!-- Type selector -->
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Hva ønsker du å booke?</label>
+            <select id="bookingType" name="type" onchange="applyBookingTab(this.value)">
+              <option value="selskap">Selskap / Arrangement</option>
+              <option value="moterom">Møterom</option>
+              <option value="restaurant">Restaurant / Bord</option>
+              <option value="kontor">Kontor</option>
+            </select>
+          </div>
+        </div>
 
         <!-- Shared: name & email -->
         <div class="form-row">
@@ -1632,20 +1614,18 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-// ─── Booking tabs
-const bookingTabConfigs = {
-  selskap:    { submitText: 'Send forespørsel', msgLabel: 'Melding',          msgPlaceholder: 'Fortell oss gjerne mer om ditt arrangement...', showBedrift: false },
-  moterom:    { submitText: 'Book møterom',     msgLabel: 'Spesielle behov',   msgPlaceholder: 'Trengs AV-utstyr, catering, eller annet?',      showBedrift: true  },
-  restaurant: { submitText: 'Reserver bord',    msgLabel: 'Spesielle ønsker',  msgPlaceholder: 'Allergier, ønsker, eller spesielle anledninger...', showBedrift: false },
-  kontor:     { submitText: 'Send forespørsel', msgLabel: 'Melding',           msgPlaceholder: 'Fortell oss om dine behov...',                  showBedrift: true  }
+// ─── Booking form
+const bookingConfigs = {
+  selskap:    { submitText: 'Send forespørsel', msgLabel: 'Melding',         msgPlaceholder: 'Fortell oss gjerne mer om ditt arrangement...', showBedrift: false },
+  moterom:    { submitText: 'Book møterom',     msgLabel: 'Spesielle behov',  msgPlaceholder: 'Trengs AV-utstyr, catering, eller annet?',      showBedrift: true  },
+  restaurant: { submitText: 'Reserver bord',   msgLabel: 'Spesielle ønsker', msgPlaceholder: 'Allergier, ønsker, eller spesielle anledninger...', showBedrift: false },
+  kontor:     { submitText: 'Send forespørsel', msgLabel: 'Melding',         msgPlaceholder: 'Fortell oss om dine behov...',                  showBedrift: true  }
 };
 
 function applyBookingTab(type) {
-  const cfg = bookingTabConfigs[type];
-  document.querySelectorAll('.booking-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === type));
+  const cfg = bookingConfigs[type];
   document.querySelectorAll('.booking-fields').forEach(f => f.classList.remove('active'));
   document.getElementById('fields-' + type).classList.add('active');
-  document.getElementById('bookingType').value = type;
   document.getElementById('submitBtn').textContent = cfg.submitText;
   document.getElementById('messageLabel').textContent = cfg.msgLabel;
   document.getElementById('messageTextarea').placeholder = cfg.msgPlaceholder;
@@ -1660,9 +1640,8 @@ function applyBookingTab(type) {
   }
 }
 
-document.querySelectorAll('.booking-tab').forEach(tab => {
-  tab.addEventListener('click', () => applyBookingTab(tab.dataset.tab));
-});
+// Init on page load
+applyBookingTab('selskap');
 
 function handleBookingSubmit(e) {
   e.preventDefault();
