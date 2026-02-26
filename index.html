@@ -723,8 +723,6 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   height: 3px;
   background: var(--gold);
 }
-.booking-fields { display: none; }
-.booking-fields.active { display: block; }
 
 .form-row {
   display: grid;
@@ -1313,20 +1311,24 @@ footer {
     <div class="booking-wrapper reveal">
       <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
 
-        <!-- Type selector -->
+        <!-- Type arrangement -->
         <div class="form-row full">
           <div class="form-group">
-            <label>Hva ønsker du å booke?</label>
-            <select id="bookingType" name="type" onchange="applyBookingTab(this.value)">
-              <option value="selskap">Selskap / Arrangement</option>
-              <option value="moterom">Møterom</option>
-              <option value="restaurant">Restaurant / Bord</option>
-              <option value="kontor">Kontor</option>
+            <label>Type arrangement</label>
+            <select name="arrangement">
+              <option value="">Velg type</option>
+              <option>Bryllup</option>
+              <option>Jubileum</option>
+              <option>Firmafest</option>
+              <option>Bursdag</option>
+              <option>Konferanse</option>
+              <option>Møte</option>
+              <option>Annet</option>
             </select>
           </div>
         </div>
 
-        <!-- Shared: name & email -->
+        <!-- Name & email -->
         <div class="form-row">
           <div class="form-group">
             <label>Ditt navn</label>
@@ -1338,146 +1340,39 @@ footer {
           </div>
         </div>
 
-        <!-- Shared: phone + optional bedrift -->
-        <div class="form-row full" id="row-contact2">
+        <!-- Phone & company -->
+        <div class="form-row">
           <div class="form-group">
             <label>Telefon</label>
             <input type="tel" name="phone" placeholder="+47 xxx xx xxx">
           </div>
-          <div class="form-group" id="field-bedrift" style="display:none">
-            <label>Bedrift</label>
+          <div class="form-group">
+            <label>Bedrift <span style="font-weight:400;opacity:0.6">(valgfritt)</span></label>
             <input type="text" name="bedrift" placeholder="Bedriftsnavn">
           </div>
         </div>
 
-        <!-- Selskap-specific -->
-        <div class="booking-fields active" id="fields-selskap">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Type arrangement</label>
-              <select name="arrangement">
-                <option value="">Velg type</option>
-                <option>Bryllup</option>
-                <option>Jubileum</option>
-                <option>Firmafest</option>
-                <option>Bursdag</option>
-                <option>Annet</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Antall gjester</label>
-              <input type="number" name="gjester" placeholder="ca. antall">
-            </div>
+        <!-- Date & guests -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ønsket dato</label>
+            <input type="date" name="dato">
           </div>
-          <div class="form-row full">
-            <div class="form-group">
-              <label>Ønsket dato</label>
-              <input type="date" name="dato_selskap">
-            </div>
+          <div class="form-group">
+            <label>Antall gjester</label>
+            <input type="number" name="gjester" placeholder="ca. antall">
           </div>
         </div>
 
-        <!-- Møterom-specific -->
-        <div class="booking-fields" id="fields-moterom">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Ønsket lokale</label>
-              <select name="lokale">
-                <option value="">Velg lokale</option>
-                <option>Festsalen (130 pers)</option>
-                <option>Borgemesteren (15 pers)</option>
-                <option>Kjell Bjarnes (25 pers)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Dato</label>
-              <input type="date" name="dato_moterom">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Fra klokken</label>
-              <input type="time" name="fra_tid" value="09:00">
-            </div>
-            <div class="form-group">
-              <label>Til klokken</label>
-              <input type="time" name="til_tid" value="16:00">
-            </div>
-          </div>
-        </div>
-
-        <!-- Restaurant-specific -->
-        <div class="booking-fields" id="fields-restaurant">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Dato</label>
-              <input type="date" name="dato_restaurant">
-            </div>
-            <div class="form-group">
-              <label>Tidspunkt</label>
-              <select name="tidspunkt">
-                <option value="">Velg tid</option>
-                <option>11:00</option>
-                <option>11:30</option>
-                <option>12:00</option>
-                <option>12:30</option>
-                <option>13:00</option>
-                <option>17:00</option>
-                <option>17:30</option>
-                <option>18:00</option>
-                <option>18:30</option>
-                <option>19:00</option>
-                <option>19:30</option>
-                <option>20:00</option>
-                <option>20:30</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row full">
-            <div class="form-group">
-              <label>Antall gjester</label>
-              <select name="gjester_restaurant">
-                <option>1 person</option>
-                <option>2 personer</option>
-                <option>3 personer</option>
-                <option>4 personer</option>
-                <option>5 personer</option>
-                <option>6 personer</option>
-                <option>7 personer</option>
-                <option>8+ personer</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kontor-specific -->
-        <div class="booking-fields" id="fields-kontor">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Type kontor</label>
-              <select name="kontor_type">
-                <option value="">Velg type</option>
-                <option>Fast kontorplass</option>
-                <option>Free seating — dagsbasis</option>
-                <option>Free seating — ukebasis</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Ønsket oppstart</label>
-              <input type="date" name="oppstart">
-            </div>
-          </div>
-        </div>
-
-        <!-- Shared: message -->
+        <!-- Message -->
         <div class="form-row full">
           <div class="form-group">
-            <label id="messageLabel">Melding</label>
-            <textarea name="message" id="messageTextarea" placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
+            <label>Melding</label>
+            <textarea name="message" placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
           </div>
         </div>
 
-        <button type="submit" class="btn-submit" id="submitBtn">Send forespørsel</button>
+        <button type="submit" class="btn-submit">Send forespørsel</button>
       </form>
     </div>
   </div>
@@ -1615,34 +1510,6 @@ const observer = new IntersectionObserver((entries) => {
 reveals.forEach(el => observer.observe(el));
 
 // ─── Booking form
-const bookingConfigs = {
-  selskap:    { submitText: 'Send forespørsel', msgLabel: 'Melding',         msgPlaceholder: 'Fortell oss gjerne mer om ditt arrangement...', showBedrift: false },
-  moterom:    { submitText: 'Book møterom',     msgLabel: 'Spesielle behov',  msgPlaceholder: 'Trengs AV-utstyr, catering, eller annet?',      showBedrift: true  },
-  restaurant: { submitText: 'Reserver bord',   msgLabel: 'Spesielle ønsker', msgPlaceholder: 'Allergier, ønsker, eller spesielle anledninger...', showBedrift: false },
-  kontor:     { submitText: 'Send forespørsel', msgLabel: 'Melding',         msgPlaceholder: 'Fortell oss om dine behov...',                  showBedrift: true  }
-};
-
-function applyBookingTab(type) {
-  const cfg = bookingConfigs[type];
-  document.querySelectorAll('.booking-fields').forEach(f => f.classList.remove('active'));
-  document.getElementById('fields-' + type).classList.add('active');
-  document.getElementById('submitBtn').textContent = cfg.submitText;
-  document.getElementById('messageLabel').textContent = cfg.msgLabel;
-  document.getElementById('messageTextarea').placeholder = cfg.msgPlaceholder;
-  const bedriftEl = document.getElementById('field-bedrift');
-  const row2 = document.getElementById('row-contact2');
-  if (cfg.showBedrift) {
-    bedriftEl.style.display = '';
-    row2.classList.remove('full');
-  } else {
-    bedriftEl.style.display = 'none';
-    row2.classList.add('full');
-  }
-}
-
-// Init on page load
-applyBookingTab('selskap');
-
 function handleBookingSubmit(e) {
   e.preventDefault();
   showConfirmation(document.getElementById('submitBtn'));
