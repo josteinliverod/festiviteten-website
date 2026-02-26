@@ -1309,7 +1309,7 @@ footer {
       <div class="section-divider"></div>
     </div>
     <div class="booking-wrapper reveal">
-      <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+      <form id="bookingForm" action="https://formspree.io/f/xvzblraz" method="POST">
 
         <!-- Type arrangement -->
         <div class="form-row full">
@@ -1509,11 +1509,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-// ─── Booking form
-function handleBookingSubmit(e) {
-  e.preventDefault();
-  showConfirmation(document.getElementById('submitBtn'));
-}
 
 // ─── Sanity Events
 (function fetchEvents() {
