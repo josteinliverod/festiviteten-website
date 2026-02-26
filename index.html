@@ -1309,7 +1309,7 @@ footer {
       <div class="section-divider"></div>
     </div>
     <div class="booking-wrapper reveal">
-      <form id="bookingForm" action="https://formspree.io/f/xvzblraz" method="POST">
+      <form id="bookingForm" action="https://formspree.io/f/xvzblraz" method="POST" onsubmit="handleBookingSubmit(event)">
 
         <!-- Type arrangement -->
         <div class="form-row full">
@@ -1509,6 +1509,32 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
+// ─── Booking form
+async function handleBookingSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Sender…';
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.innerHTML = '<div style="text-align:center;padding:3rem 1rem"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="margin-bottom:1rem"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3 style="color:var(--gold);margin-bottom:.5rem">Takk for din forespørsel!</h3><p style="color:var(--muted)">Vi tar kontakt med deg så snart som mulig.</p></div>';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Send forespørsel';
+      alert('Noe gikk galt. Prøv igjen eller send e-post direkte til oss.');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Send forespørsel';
+    alert('Noe gikk galt. Prøv igjen eller send e-post direkte til oss.');
+  }
+}
 
 // ─── Sanity Events
 (function fetchEvents() {
