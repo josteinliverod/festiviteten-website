@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Festsalen — Festiviteten Larvik</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── VARIABLES ─── */
+:root {
+  --blush: #E2BAA8;
+  --blush-light: #F5E6DD;
+  --blush-pale: #FBF3EF;
+  --cream: #FFFAF7;
+  --charcoal: #1A1A1A;
+  --warm-black: #0D0B09;
+  --gold: #C4956A;
+  --gold-light: #D4AB84;
+  --ink: #2C2420;
+  --muted: #7A6E66;
+  --white: #FFFFFF;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--sans); color: var(--charcoal); background: var(--cream); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { border: none; cursor: pointer; font-family: inherit; }
+
+/* ─── UTILITY ─── */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lineGrow { from { width: 0; } to { width: 40px; } }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease-out); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* ─── NAV ─── */
+nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.25rem 0; transition: all 0.5s var(--ease); }
+nav.scrolled { background: rgba(255,250,247,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 0.75rem 0; box-shadow: 0 1px 0 rgba(194,149,106,0.15); }
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; }
+.nav-logo-img { height: 28px; width: auto; filter: brightness(0) invert(1); transition: filter 0.5s var(--ease); }
+nav.scrolled .nav-logo-img { filter: none; }
+.footer-logo-img { filter: brightness(0) invert(1) !important; height: 26px; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.85); transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s var(--ease); }
+.nav-links a:hover::after { width: 100%; }
+nav.scrolled .nav-links a { color: var(--charcoal); }
+.nav-book { padding: 0.65rem 1.75rem; background: var(--gold); color: var(--white) !important; font-size: 0.75rem !important; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; transition: all 0.3s var(--ease); }
+.nav-book::after { display: none !important; }
+.nav-book:hover { background: var(--gold-light); transform: translateY(-1px); }
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; }
+.nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+nav.scrolled .nav-toggle span { background: var(--charcoal); }
+
+/* ─── SECTION HEADER ─── */
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.section-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 300; color: var(--charcoal); line-height: 1.15; }
+.section-title em { font-style: italic; font-weight: 400; }
+.section-divider { width: 50px; height: 1px; background: var(--gold); margin: 1.5rem auto 0; }
+
+/* ─── BUTTONS ─── */
+.btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2rem; background: var(--gold); color: var(--white); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; transition: all 0.35s var(--ease); }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,149,106,0.3); }
+.btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2rem; background: transparent; border: 1px solid rgba(255,255,255,0.35); color: var(--white); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: all 0.35s var(--ease); }
+.btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+/* ─── BOOKING / FORM ─── */
+.booking { padding: 8rem 0; background: var(--cream); }
+.booking-wrapper { background: var(--white); border: 1px solid rgba(196,149,106,0.15); padding: 4rem; max-width: 900px; margin: 0 auto; position: relative; }
+.booking-wrapper::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--gold); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-row.full { grid-template-columns: 1fr; }
+.form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 0.9rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; }
+.btn-submit { width: 100%; padding: 1.1rem; background: var(--gold); color: var(--white); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: none; transition: all 0.35s var(--ease); margin-top: 0.5rem; }
+.btn-submit:hover { background: var(--gold-light); }
+
+/* ─── FOOTER ─── */
+footer { padding: 5rem 0 3rem; background: var(--warm-black); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-brand .nav-logo { margin-bottom: 1.5rem; }
+.footer-brand p { font-size: 0.9rem; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.7; max-width: 280px; }
+.footer-col h4 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.75rem; }
+.footer-col a { font-size: 0.9rem; color: rgba(255,255,255,0.5); font-weight: 300; transition: color 0.3s; }
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); font-weight: 300; }
+.footer-socials { display: flex; gap: 1.5rem; }
+.footer-socials a { color: rgba(255,255,255,0.4); transition: color 0.3s; font-size: 0.85rem; }
+.footer-socials a:hover { color: var(--gold-light); }
+
+/* ─── ROOM HERO ─── */
+.room-hero { position: relative; height: 80vh; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; }
+.room-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 8s ease; }
+.room-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,11,9,0.15) 0%, rgba(13,11,9,0.4) 50%, rgba(13,11,9,0.8) 100%); }
+.room-hero-content { position: relative; z-index: 2; padding-bottom: 5rem; animation: fadeUp 1s var(--ease-out) 0.2s both; }
+.room-hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+.room-hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold-light); animation: lineGrow 0.8s var(--ease) 0.6s both; }
+.room-hero h1 { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 1rem; letter-spacing: -0.01em; }
+.room-hero h1 em { font-style: italic; color: var(--blush); }
+.room-hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.7); max-width: 480px; margin-bottom: 2rem; line-height: 1.7; }
+.room-hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.room-capacity-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(196,149,106,0.2); border: 1px solid rgba(196,149,106,0.4); color: var(--gold-light); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+
+/* ─── STATS BAR ─── */
+.room-stats { background: var(--white); border-bottom: 1px solid rgba(196,149,106,0.15); }
+.room-stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+.room-stat { padding: 1.75rem 1.5rem; border-right: 1px solid rgba(196,149,106,0.12); display: flex; align-items: center; gap: 1rem; }
+.room-stat:last-child { border-right: none; }
+.room-stat-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--blush-pale); color: var(--gold); flex-shrink: 0; }
+.room-stat-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--charcoal); line-height: 1.2; }
+.room-stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.15rem; }
+
+/* ─── ABOUT ─── */
+.room-about { padding: 8rem 0; background: var(--cream); }
+.room-about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+.room-about-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+.room-about-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 0.5rem; }
+.room-about-title em { font-style: italic; font-weight: 400; color: var(--gold); }
+.room-about-divider { width: 50px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+.room-about-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--muted); margin-bottom: 1.25rem; }
+.room-about-text p:last-child { margin-bottom: 0; }
+.room-features-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+.room-features { list-style: none; }
+.room-feature { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(196,149,106,0.1); font-size: 0.9rem; font-weight: 300; color: var(--charcoal); line-height: 1.5; }
+.room-feature:first-child { border-top: 1px solid rgba(196,149,106,0.1); }
+.room-feature svg { flex-shrink: 0; color: var(--gold); margin-top: 2px; }
+
+/* ─── GALLERY ─── */
+.room-gallery { padding: 0 0 8rem; background: var(--cream); }
+.room-gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 1rem; height: 420px; }
+.room-gallery-item { overflow: hidden; }
+.room-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+.room-gallery-item:hover img { transform: scale(1.04); }
+.room-gallery-item.tall { grid-row: span 1; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .room-stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .room-stat:nth-child(2) { border-right: none; }
+  .room-about-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); padding: 2rem; gap: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  .nav-links.open a { color: var(--charcoal) !important; }
+  .room-stats-inner { grid-template-columns: 1fr 1fr; }
+  .room-stat { padding: 1.25rem 1rem; }
+  .room-gallery-grid { grid-template-columns: 1fr; height: auto; }
+  .room-gallery-item { height: 240px; }
+  .form-row { grid-template-columns: 1fr; }
+  .booking-wrapper { padding: 2.5rem 1.5rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .room-hero-ctas { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/festiviteten logo sekundær.svg" alt="Festiviteten" class="nav-logo-img">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#pillars">Opplev</a></li>
+      <li><a href="index.html#ellings">Ellings</a></li>
+      <li><a href="index.html#rooms">Lokaler</a></li>
+      <li><a href="index.html#offices">Kontorer</a></li>
+      <li><a href="index.html#events">Hva skjer</a></li>
+      <li><a href="index.html#kontakt">Kontakt</a></li>
+      <li><a href="#booking" class="nav-book">Booking</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="room-hero">
+  <div class="room-hero-bg" style="background-image: url('assets/images/festsalen-1.jpg')"></div>
+  <div class="room-hero-overlay"></div>
+  <div class="container room-hero-content">
+    <div class="room-hero-eyebrow">Lokaler · Festiviteten Larvik</div>
+    <h1>Festsalen</h1>
+    <p class="room-hero-sub">Norges tredje eldste festsal — et historisk og praktfullt ramme for ditt arrangement.</p>
+    <div class="room-capacity-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Opptil 130 personer
+    </div>
+    <div class="room-hero-ctas">
+      <a href="#booking" class="btn-primary">Book Festsalen</a>
+      <a href="#om" class="btn-outline">Les mer</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ═══ -->
+<div class="room-stats">
+  <div class="container">
+    <div class="room-stats-inner">
+      <div class="room-stat">
+        <div class="room-stat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="room-stat-value">Opptil 130</div>
+          <div class="room-stat-label">Gjester</div>
+        </div>
+      </div>
+      <div class="room-stat">
+        <div class="room-stat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div>
+          <div class="room-stat-value">Festsal</div>
+          <div class="room-stat-label">Bryllup, fest & konferanse</div>
+        </div>
+      </div>
+      <div class="room-stat">
+        <div class="room-stat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="room-stat-value">Storgata 33</div>
+          <div class="room-stat-label">Larvik sentrum</div>
+        </div>
+      </div>
+      <div class="room-stat">
+        <div class="room-stat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="room-stat-value">Siden 1800-tallet</div>
+          <div class="room-stat-label">Historisk festsal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="room-about" id="om">
+  <div class="container">
+    <div class="room-about-layout">
+      <div class="room-about-text reveal">
+        <div class="room-about-eyebrow">Om Festsalen</div>
+        <h2 class="room-about-title">En <em>historisk</em> ramme for ditt arrangement</h2>
+        <div class="room-about-divider"></div>
+        <p>Festsalen er Norges tredje eldste festsal og et av Larviks mest ikoniske rom. Med høye tak, klassisk arkitektur og en atmosfære som bærer preg av generasjoners feiring, gir den ethvert arrangement en unik og minneverdig ramme.</p>
+        <p>Salen er fleksibelt møblert og kan tilpasses alt fra intime middager til store galaer, konferanser og bryllupsreservasjoner. Med plass til opptil 130 gjester er Festsalen det naturlige valget for de store anledningene.</p>
+        <p>Ellings Restaurant sørger for mat og drikke av høy kvalitet, og vårt erfarne team hjelper deg å skreddersy arrangementet fra start til slutt.</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="room-features-label">Fasiliteter</div>
+        <ul class="room-features">
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Opptil 130 gjester
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Profesjonelt lyd- og lysanlegg
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Scene og podium
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Catering fra Ellings Restaurant
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Fleksibel møblering
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Garderobe
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Historiske interiørdetaljer
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Parkering i nærheten
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="room-gallery">
+  <div class="container">
+    <div class="room-gallery-grid reveal">
+      <div class="room-gallery-item">
+        <img src="assets/images/festsalen-1.jpg" alt="Festsalen — oversikt">
+      </div>
+      <div class="room-gallery-item">
+        <img src="assets/images/festsalen-detail-1.jpg" alt="Festsalen — detalj">
+      </div>
+      <div class="room-gallery-item">
+        <img src="assets/images/festsalen-detail-2.jpg" alt="Festsalen — detalj 2">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BOOKING ═══ -->
+<section class="booking" id="booking">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Booking</div>
+      <h2 class="section-title">Reserver <em>Festsalen</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="booking-wrapper reveal">
+      <form action="https://formspree.io/f/xvzblraz" method="POST" onsubmit="handleBookingSubmit(event)">
+        <input type="hidden" name="lokale" value="Festsalen">
+        <input type="hidden" name="_subject" value="Forespørsel — Festsalen">
+
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Type arrangement</label>
+            <select name="arrangement">
+              <option value="">Velg type</option>
+              <option>Bryllup</option>
+              <option>Jubileum</option>
+              <option>Firmafest</option>
+              <option>Bursdag</option>
+              <option>Konferanse</option>
+              <option>Møte</option>
+              <option>Annet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ditt navn</label>
+            <input type="text" name="name" placeholder="Fullt navn">
+          </div>
+          <div class="form-group">
+            <label>E-post</label>
+            <input type="email" name="email" placeholder="din@epost.no">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" name="phone" placeholder="+47 xxx xx xxx">
+          </div>
+          <div class="form-group">
+            <label>Bedrift <span style="font-weight:400;opacity:0.6">(valgfritt)</span></label>
+            <input type="text" name="bedrift" placeholder="Bedriftsnavn">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ønsket dato</label>
+            <input type="date" name="dato">
+          </div>
+          <div class="form-group">
+            <label>Antall gjester</label>
+            <input type="number" name="gjester" placeholder="ca. antall">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-group">
+            <label>Melding</label>
+            <textarea name="message" placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Send forespørsel</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer id="kontakt">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="margin-bottom:1.5rem;display:flex">
+          <img src="assets/images/festiviteten logo sekundær.svg" alt="Festiviteten" class="nav-logo-img footer-logo-img">
+        </a>
+        <p>Byens storstue — midt i Larvik. Et sted å jobbe, spise, feire og møtes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Besøk oss</h4>
+        <ul>
+          <li><a href="#">Storgata 33</a></li>
+          <li><a href="#">3256 Larvik</a></li>
+          <li><a href="mailto:hei@festivitetenlarvik.no">hei@festivitetenlarvik.no</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lokaler</h4>
+        <ul>
+          <li><a href="festsalen.html">Festsalen</a></li>
+          <li><a href="borgemesteren.html">Borgemesteren</a></li>
+          <li><a href="kjell-bjarnes.html">Kjell Bjarnes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="index.html#ellings">Ellings Restaurant</a></li>
+          <li><a href="index.html#offices">Kontorer</a></li>
+          <li><a href="index.html#events">Arrangementer</a></li>
+          <li><a href="index.html#booking">Booking</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Festiviteten Larvik. Alle rettigheter reservert.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Booking form
+async function handleBookingSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Sender…';
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.innerHTML = '<div style="text-align:center;padding:3rem 1rem"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="margin-bottom:1rem"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h3 style="color:var(--gold);margin-bottom:.5rem">Takk for din forespørsel!</h3><p style="color:var(--muted)">Vi tar kontakt med deg så snart som mulig.</p></div>';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Send forespørsel';
+      alert('Noe gikk galt. Prøv igjen eller send e-post direkte til oss.');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Send forespørsel';
+    alert('Noe gikk galt. Prøv igjen eller send e-post direkte til oss.');
+  }
+}
+</script>
+</body>
+</html>
