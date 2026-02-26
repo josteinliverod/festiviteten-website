@@ -746,8 +746,8 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
 .booking-tab.active { color: var(--charcoal); border-bottom-color: var(--gold); }
 .booking-tab:hover { color: var(--charcoal); }
 
-.booking-form { display: none; }
-.booking-form.active { display: block; animation: fadeUp 0.5s var(--ease); }
+.booking-fields { display: none; }
+.booking-fields.active { display: block; animation: fadeUp 0.5s var(--ease); }
 
 .form-row {
   display: grid;
@@ -1341,220 +1341,162 @@ footer {
         <button class="booking-tab" data-tab="kontor">Kontor</button>
       </div>
 
-      <!-- Selskap -->
-      <div class="booking-form active" id="form-selskap">
+      <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+        <input type="hidden" id="bookingType" name="type" value="selskap">
+
+        <!-- Shared: name & email -->
         <div class="form-row">
           <div class="form-group">
             <label>Ditt navn</label>
-            <input type="text" placeholder="Fullt navn">
+            <input type="text" name="name" placeholder="Fullt navn">
           </div>
           <div class="form-group">
             <label>E-post</label>
-            <input type="email" placeholder="din@epost.no">
+            <input type="email" name="email" placeholder="din@epost.no">
           </div>
         </div>
-        <div class="form-row">
+
+        <!-- Shared: phone + optional bedrift -->
+        <div class="form-row full" id="row-contact2">
           <div class="form-group">
             <label>Telefon</label>
-            <input type="tel" placeholder="+47 xxx xx xxx">
+            <input type="tel" name="phone" placeholder="+47 xxx xx xxx">
           </div>
-          <div class="form-group">
-            <label>Ønsket dato</label>
-            <input type="date">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Type arrangement</label>
-            <select>
-              <option value="">Velg type</option>
-              <option>Bryllup</option>
-              <option>Jubileum</option>
-              <option>Firmafest</option>
-              <option>Bursdag</option>
-              <option>Annet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Antall gjester</label>
-            <input type="number" placeholder="ca. antall">
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Melding</label>
-            <textarea placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
-          </div>
-        </div>
-        <button class="btn-submit" onclick="showConfirmation(this)">Send forespørsel</button>
-      </div>
-
-      <!-- Møterom -->
-      <div class="booking-form" id="form-moterom">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Ditt navn</label>
-            <input type="text" placeholder="Fullt navn">
-          </div>
-          <div class="form-group">
+          <div class="form-group" id="field-bedrift" style="display:none">
             <label>Bedrift</label>
-            <input type="text" placeholder="Bedriftsnavn">
+            <input type="text" name="bedrift" placeholder="Bedriftsnavn">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>E-post</label>
-            <input type="email" placeholder="din@epost.no">
-          </div>
-          <div class="form-group">
-            <label>Telefon</label>
-            <input type="tel" placeholder="+47 xxx xx xxx">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Ønsket lokale</label>
-            <select>
-              <option value="">Velg lokale</option>
-              <option>Festsalen (130 pers)</option>
-              <option>Borgemesteren (15 pers)</option>
-              <option>Kjell Bjarnes (25 pers)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Dato</label>
-            <input type="date">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Fra klokken</label>
-            <input type="time" value="09:00">
-          </div>
-          <div class="form-group">
-            <label>Til klokken</label>
-            <input type="time" value="16:00">
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Spesielle behov</label>
-            <textarea placeholder="Trengs AV-utstyr, catering, eller annet?"></textarea>
-          </div>
-        </div>
-        <button class="btn-submit" onclick="showConfirmation(this)">Book møterom</button>
-      </div>
 
-      <!-- Restaurant -->
-      <div class="booking-form" id="form-restaurant">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Ditt navn</label>
-            <input type="text" placeholder="Fullt navn">
+        <!-- Selskap-specific -->
+        <div class="booking-fields active" id="fields-selskap">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type arrangement</label>
+              <select name="arrangement">
+                <option value="">Velg type</option>
+                <option>Bryllup</option>
+                <option>Jubileum</option>
+                <option>Firmafest</option>
+                <option>Bursdag</option>
+                <option>Annet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Antall gjester</label>
+              <input type="number" name="gjester" placeholder="ca. antall">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Telefon</label>
-            <input type="tel" placeholder="+47 xxx xx xxx">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Dato</label>
-            <input type="date">
-          </div>
-          <div class="form-group">
-            <label>Tidspunkt</label>
-            <select>
-              <option value="">Velg tid</option>
-              <option>11:00</option>
-              <option>11:30</option>
-              <option>12:00</option>
-              <option>12:30</option>
-              <option>13:00</option>
-              <option>17:00</option>
-              <option>17:30</option>
-              <option>18:00</option>
-              <option>18:30</option>
-              <option>19:00</option>
-              <option>19:30</option>
-              <option>20:00</option>
-              <option>20:30</option>
-            </select>
+          <div class="form-row full">
+            <div class="form-group">
+              <label>Ønsket dato</label>
+              <input type="date" name="dato_selskap">
+            </div>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Antall gjester</label>
-            <select>
-              <option>1 person</option>
-              <option>2 personer</option>
-              <option>3 personer</option>
-              <option>4 personer</option>
-              <option>5 personer</option>
-              <option>6 personer</option>
-              <option>7 personer</option>
-              <option>8+ personer</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>E-post</label>
-            <input type="email" placeholder="din@epost.no">
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Spesielle ønsker</label>
-            <textarea placeholder="Allergier, ønsker, eller spesielle anledninger..."></textarea>
-          </div>
-        </div>
-        <button class="btn-submit" onclick="showConfirmation(this)">Reserver bord</button>
-      </div>
 
-      <!-- Kontor -->
-      <div class="booking-form" id="form-kontor">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Ditt navn</label>
-            <input type="text" placeholder="Fullt navn">
+        <!-- Møterom-specific -->
+        <div class="booking-fields" id="fields-moterom">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ønsket lokale</label>
+              <select name="lokale">
+                <option value="">Velg lokale</option>
+                <option>Festsalen (130 pers)</option>
+                <option>Borgemesteren (15 pers)</option>
+                <option>Kjell Bjarnes (25 pers)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dato</label>
+              <input type="date" name="dato_moterom">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Bedrift</label>
-            <input type="text" placeholder="Bedriftsnavn">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>E-post</label>
-            <input type="email" placeholder="din@epost.no">
-          </div>
-          <div class="form-group">
-            <label>Telefon</label>
-            <input type="tel" placeholder="+47 xxx xx xxx">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Type kontor</label>
-            <select>
-              <option value="">Velg type</option>
-              <option>Fast kontorplass</option>
-              <option>Free seating — dagsbasis</option>
-              <option>Free seating — ukebasis</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Ønsket oppstart</label>
-            <input type="date">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Fra klokken</label>
+              <input type="time" name="fra_tid" value="09:00">
+            </div>
+            <div class="form-group">
+              <label>Til klokken</label>
+              <input type="time" name="til_tid" value="16:00">
+            </div>
           </div>
         </div>
+
+        <!-- Restaurant-specific -->
+        <div class="booking-fields" id="fields-restaurant">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Dato</label>
+              <input type="date" name="dato_restaurant">
+            </div>
+            <div class="form-group">
+              <label>Tidspunkt</label>
+              <select name="tidspunkt">
+                <option value="">Velg tid</option>
+                <option>11:00</option>
+                <option>11:30</option>
+                <option>12:00</option>
+                <option>12:30</option>
+                <option>13:00</option>
+                <option>17:00</option>
+                <option>17:30</option>
+                <option>18:00</option>
+                <option>18:30</option>
+                <option>19:00</option>
+                <option>19:30</option>
+                <option>20:00</option>
+                <option>20:30</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label>Antall gjester</label>
+              <select name="gjester_restaurant">
+                <option>1 person</option>
+                <option>2 personer</option>
+                <option>3 personer</option>
+                <option>4 personer</option>
+                <option>5 personer</option>
+                <option>6 personer</option>
+                <option>7 personer</option>
+                <option>8+ personer</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kontor-specific -->
+        <div class="booking-fields" id="fields-kontor">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type kontor</label>
+              <select name="kontor_type">
+                <option value="">Velg type</option>
+                <option>Fast kontorplass</option>
+                <option>Free seating — dagsbasis</option>
+                <option>Free seating — ukebasis</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Ønsket oppstart</label>
+              <input type="date" name="oppstart">
+            </div>
+          </div>
+        </div>
+
+        <!-- Shared: message -->
         <div class="form-row full">
           <div class="form-group">
-            <label>Melding</label>
-            <textarea placeholder="Fortell oss om dine behov..."></textarea>
+            <label id="messageLabel">Melding</label>
+            <textarea name="message" id="messageTextarea" placeholder="Fortell oss gjerne mer om ditt arrangement..."></textarea>
           </div>
         </div>
-        <button class="btn-submit" onclick="showConfirmation(this)">Send forespørsel</button>
-      </div>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Send forespørsel</button>
+      </form>
     </div>
   </div>
 </section>
@@ -1691,14 +1633,41 @@ const observer = new IntersectionObserver((entries) => {
 reveals.forEach(el => observer.observe(el));
 
 // ─── Booking tabs
+const bookingTabConfigs = {
+  selskap:    { submitText: 'Send forespørsel', msgLabel: 'Melding',          msgPlaceholder: 'Fortell oss gjerne mer om ditt arrangement...', showBedrift: false },
+  moterom:    { submitText: 'Book møterom',     msgLabel: 'Spesielle behov',   msgPlaceholder: 'Trengs AV-utstyr, catering, eller annet?',      showBedrift: true  },
+  restaurant: { submitText: 'Reserver bord',    msgLabel: 'Spesielle ønsker',  msgPlaceholder: 'Allergier, ønsker, eller spesielle anledninger...', showBedrift: false },
+  kontor:     { submitText: 'Send forespørsel', msgLabel: 'Melding',           msgPlaceholder: 'Fortell oss om dine behov...',                  showBedrift: true  }
+};
+
+function applyBookingTab(type) {
+  const cfg = bookingTabConfigs[type];
+  document.querySelectorAll('.booking-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === type));
+  document.querySelectorAll('.booking-fields').forEach(f => f.classList.remove('active'));
+  document.getElementById('fields-' + type).classList.add('active');
+  document.getElementById('bookingType').value = type;
+  document.getElementById('submitBtn').textContent = cfg.submitText;
+  document.getElementById('messageLabel').textContent = cfg.msgLabel;
+  document.getElementById('messageTextarea').placeholder = cfg.msgPlaceholder;
+  const bedriftEl = document.getElementById('field-bedrift');
+  const row2 = document.getElementById('row-contact2');
+  if (cfg.showBedrift) {
+    bedriftEl.style.display = '';
+    row2.classList.remove('full');
+  } else {
+    bedriftEl.style.display = 'none';
+    row2.classList.add('full');
+  }
+}
+
 document.querySelectorAll('.booking-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.booking-form').forEach(f => f.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('form-' + tab.dataset.tab).classList.add('active');
-  });
+  tab.addEventListener('click', () => applyBookingTab(tab.dataset.tab));
 });
+
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  showConfirmation(document.getElementById('submitBtn'));
+}
 
 // ─── Sanity Events
 (function fetchEvents() {
