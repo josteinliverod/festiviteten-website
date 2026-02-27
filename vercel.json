@@ -2,6 +2,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/borgemesteren", "destination": "/borgermesteren", "permanent": true }
+    { "source": "/borgemesteren", "destination": "/borgermesteren", "permanent": true },
+    { "source": "/event", "destination": "/", "permanent": true },
+    { "source": "/hvaskjer", "destination": "/", "permanent": true },
+    { "source": "/kontakt", "destination": "/", "permanent": true },
+    { "source": "/ellings", "destination": "/", "permanent": true }
   ]
 }
