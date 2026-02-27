@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/borgemesteren", "destination": "/borgermesteren", "permanent": true }
+  ]
 }
