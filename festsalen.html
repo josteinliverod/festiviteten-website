@@ -85,7 +85,7 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 .form-row.full { grid-template-columns: 1fr; }
 .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 0.9rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 1rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
 .form-group textarea { resize: vertical; min-height: 100px; }
 .form-group select { cursor: pointer; }
@@ -191,7 +191,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
       <li><a href="/#rooms">Lokaler</a></li>
       <li><a href="/#offices">Kontorer</a></li>
       <li><a href="/#events">Hva skjer</a></li>
-      <li><a href="/#kontakt">Kontakt</a></li>
+      <li><a href="/historie">Historie</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
@@ -207,7 +207,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
   <div class="container room-hero-content">
     <div class="room-hero-eyebrow">Lokaler · Festiviteten Larvik</div>
     <h1>Festsalen</h1>
-    <p class="room-hero-sub">Norges tredje eldste festsal — et historisk og praktfullt ramme for ditt arrangement.</p>
+    <p class="room-hero-sub">Norges tredje eldste festsal — en historisk og praktfull ramme for ditt arrangement.</p>
     <div class="room-capacity-badge">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
       Opptil 130 personer
@@ -273,7 +273,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
         <div class="room-about-divider"></div>
         <p>Festsalen er Norges tredje eldste festsal og et av Larviks mest ikoniske rom. Med høye tak, klassisk arkitektur og en atmosfære som bærer preg av generasjoners feiring, gir den ethvert arrangement en unik og minneverdig ramme.</p>
         <p>Salen er fleksibelt møblert og kan tilpasses alt fra intime middager til store galaer, konferanser og bryllupsreservasjoner. Med plass til opptil 130 gjester er Festsalen det naturlige valget for de store anledningene.</p>
-        <p>Ellings Restaurant sørger for mat og drikke av høy kvalitet, og vårt erfarne team hjelper deg å skreddersy arrangementet fra start til slutt.</p>
+        <p>Ellings sørger for mat og drikke av høy kvalitet, og vårt erfarne team hjelper deg å skreddersy arrangementet fra start til slutt.</p>
       </div>
       <div class="reveal reveal-delay-1">
         <div class="room-features-label">Fasiliteter</div>
@@ -288,11 +288,11 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Scene og podium
+            Scene
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Catering fra Ellings Restaurant
+            Servering fra Ellings
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -308,7 +308,11 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Parkering i nærheten
+            Heis
+          </li>
+          <li class="room-feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Rett ved togstasjonen
           </li>
         </ul>
       </div>
@@ -425,7 +429,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
         <h4>Lokaler</h4>
         <ul>
           <li><a href="/festsalen">Festsalen</a></li>
-          <li><a href="/borgemesteren">Borgemesteren</a></li>
+          <li><a href="/borgermesteren">Borgermesteren</a></li>
           <li><a href="/kjell-bjarnes">Kjell Bjarnes</a></li>
         </ul>
       </div>
@@ -436,6 +440,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           <li><a href="/menyer">Selskapsmenyer</a></li>
           <li><a href="/#offices">Kontorer</a></li>
           <li><a href="/#events">Arrangementer</a></li>
+          <li><a href="/historie">Historie</a></li>
           <li><a href="/#booking">Booking</a></li>
         </ul>
       </div>

@@ -60,7 +60,7 @@
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     .form-row.full { grid-template-columns: 1fr; }
     .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 0.9rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 1rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
     .form-group textarea { resize: vertical; min-height: 100px; }
     .form-group select { cursor: pointer; }
@@ -162,7 +162,7 @@
         <li><a href="/#rooms">Lokaler</a></li>
         <li><a href="/#offices">Kontorer</a></li>
         <li><a href="/#events">Hva skjer</a></li>
-        <li><a href="/#kontakt">Kontakt</a></li>
+        <li><a href="/historie">Historie</a></li>
         <li><a href="#booking" class="nav-book">Booking</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Meny">
@@ -173,7 +173,7 @@
 
   <!-- Hero -->
   <section class="room-hero">
-    <div class="room-hero-bg" style="background-image: url('assets/images/borgemesteren-1.jpg');"></div>
+    <div class="room-hero-bg" style="background-image: url('assets/images/borgermesteren-1.jpg');"></div>
     <div class="room-hero-overlay"></div>
     <div class="container">
       <div class="room-hero-content">
@@ -201,7 +201,7 @@
           </div>
           <div>
             <div class="room-stat-value">3 lokaler</div>
-            <div class="room-stat-label">Festsalen, Borgemesteren, Kjell Bjarnes</div>
+            <div class="room-stat-label">Festsalen, Borgermesteren, Kjell Bjarnes</div>
           </div>
         </div>
         <div class="room-stat">
@@ -320,13 +320,13 @@
             <div class="venue-card-capacity">Opptil 130 personer</div>
           </div>
         </a>
-        <a href="/borgemesteren" class="venue-card">
+        <a href="/borgermesteren" class="venue-card">
           <div class="venue-card-img">
-            <img src="assets/images/borgemesteren-1.jpg" alt="Borgemesteren">
+            <img src="assets/images/borgermesteren-1.jpg" alt="Borgermesteren">
           </div>
           <div class="venue-card-overlay"></div>
           <div class="venue-card-info">
-            <div class="venue-card-name">Borgemesteren</div>
+            <div class="venue-card-name">Borgermesteren</div>
             <div class="venue-card-detail">Eksklusivt styrerom</div>
             <div class="venue-card-capacity">Opptil 15 personer</div>
           </div>
@@ -363,7 +363,7 @@
               <select id="lokale" name="lokale">
                 <option value="">Velg lokale</option>
                 <option value="Festsalen (opptil 130 pers)">Festsalen (opptil 130 pers)</option>
-                <option value="Borgemesteren (opptil 15 pers)">Borgemesteren (opptil 15 pers)</option>
+                <option value="Borgermesteren (opptil 15 pers)">Borgermesteren (opptil 15 pers)</option>
                 <option value="Kjell Bjarnes (opptil 25 pers)">Kjell Bjarnes (opptil 25 pers)</option>
                 <option value="Usikker — ønsker rådgivning">Usikker — ønsker rådgivning</option>
               </select>
@@ -433,7 +433,7 @@
           <h4>Lokaler</h4>
           <ul>
             <li><a href="/festsalen">Festsalen</a></li>
-            <li><a href="/borgemesteren">Borgemesteren</a></li>
+            <li><a href="/borgermesteren">Borgermesteren</a></li>
             <li><a href="/kjell-bjarnes">Kjell Bjarnes</a></li>
           </ul>
         </div>
@@ -444,6 +444,7 @@
           <li><a href="/menyer">Selskapsmenyer</a></li>
             <li><a href="/kontor">Kontorer</a></li>
             <li><a href="/#events">Arrangementer</a></li>
+            <li><a href="/historie">Historie</a></li>
             <li><a href="/#booking">Booking</a></li>
           </ul>
         </div>

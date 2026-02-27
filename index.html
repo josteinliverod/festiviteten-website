@@ -748,7 +748,7 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   border: 1px solid rgba(0,0,0,0.1);
   background: var(--cream);
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--charcoal);
   transition: border-color 0.3s;
   outline: none;
@@ -1043,6 +1043,8 @@ footer {
   .hero-ctas { flex-direction: column; }
   .restaurant-images { grid-template-columns: 1fr; }
   .restaurant-hours { flex-direction: column; gap: 1rem; }
+  .hagen-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .hagen-photos { grid-template-columns: 1fr !important; height: auto !important; min-height: 320px; }
 }
 </style>
 </head>
@@ -1060,7 +1062,7 @@ footer {
       <li><a href="#rooms">Lokaler</a></li>
       <li><a href="#offices">Kontorer</a></li>
       <li><a href="#events">Hva skjer</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="/historie">Historie</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
@@ -1142,7 +1144,7 @@ footer {
         </div>
       </div>
       <div class="pillar-card reveal reveal-delay-4" onclick="location.href='#rooms'">
-        <div class="pillar-img" style="background-image:url('assets/images/borgemesteren-1.jpg')"></div>
+        <div class="pillar-img" style="background-image:url('assets/images/borgermesteren-1.jpg')"></div>
         <div class="pillar-content">
           <div class="pillar-label">Møtes</div>
           <div class="pillar-desc">Vi har rom for de viktige møtene — moderne teknikk i historiske rammer.</div>
@@ -1174,11 +1176,11 @@ footer {
           </span>
         </div>
       </a>
-      <a href="/borgemesteren" class="room-card reveal reveal-delay-1">
-        <img class="room-img" src="assets/images/borgemesteren-1.jpg" alt="Borgemesteren">
+      <a href="/borgermesteren" class="room-card reveal reveal-delay-1">
+        <img class="room-img" src="assets/images/borgermesteren-1.jpg" alt="Borgermesteren">
         <div class="room-overlay"></div>
         <div class="room-info">
-          <h3 class="room-name">Borgemesteren</h3>
+          <h3 class="room-name">Borgermesteren</h3>
           <p class="room-detail">Flott styrerom med klassisk atmosfære</p>
           <span class="room-capacity">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
@@ -1240,7 +1242,7 @@ footer {
 <section style="padding: 8rem 0; background: var(--blush-pale); position: relative; overflow: hidden;">
   <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blush),transparent)"></div>
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+    <div class="hagen-layout" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
       <div class="reveal">
         <div class="section-eyebrow">Uteservering</div>
         <h2 class="section-title">Festivitetshagen</h2>
@@ -1255,7 +1257,7 @@ footer {
           <a href="#events" class="btn-primary">Se hva som skjer</a>
         </div>
       </div>
-      <div class="reveal reveal-delay-1" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:420px;">
+      <div class="hagen-photos reveal reveal-delay-1" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;height:420px;">
         <div style="overflow:hidden;border-radius:2px;grid-row:span 1;">
           <img src="assets/images/festivitetshagen-1.jpg" alt="Festivitetshagen" style="width:100%;height:100%;object-fit:cover;transition:transform 0.7s var(--ease);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
         </div>
@@ -1336,7 +1338,7 @@ footer {
   <div class="container">
     <div class="section-header reveal">
       <div class="section-eyebrow">Booking</div>
-      <h2 class="section-title">Reserver <em>din plass</em></h2>
+      <h2 class="section-title">Send oss en <em>forespørsel</em></h2>
       <div class="section-divider"></div>
     </div>
     <div class="booking-wrapper reveal">
@@ -1426,8 +1428,8 @@ footer {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="nav-logo">
-          <img src="https://josteinliverod.github.io/festiviteten-website/assets/images/festiviteten%20logo%20sekundær.svg" alt="Festiviteten" class="nav-logo-img footer-logo-img">
+        <a href="/" class="nav-logo" style="margin-bottom:1.5rem;display:flex">
+          <img src="assets/images/festiviteten logo sekundær.svg" alt="Festiviteten" class="nav-logo-img footer-logo-img">
         </a>
         <p>Byens storstue — midt i Larvik. Et sted å jobbe, spise, feire og møtes.</p>
       </div>
@@ -1440,18 +1442,21 @@ footer {
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Utforsk</h4>
+        <h4>Lokaler</h4>
         <ul>
-          <li><a href="#ellings">Ellings Restaurant</a></li>
-          <li><a href="#rooms">Møtelokaler</a></li>
-          <li><a href="#offices">Kontorer</a></li>
-          <li><a href="#events">Arrangementer</a></li>
+          <li><a href="/festsalen">Festsalen</a></li>
+          <li><a href="/borgermesteren">Borgermesteren</a></li>
+          <li><a href="/kjell-bjarnes">Kjell Bjarnes</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Praktisk</h4>
+        <h4>Utforsk</h4>
         <ul>
-          <li><a href="#booking">Booking</a></li>
+          <li><a href="#ellings">Ellings Restaurant</a></li>
+          <li><a href="/menyer">Selskapsmenyer</a></li>
+          <li><a href="#offices">Kontorer</a></li>
+          <li><a href="#events">Arrangementer</a></li>
+          <li><a href="/historie">Historie</a></li>
         </ul>
       </div>
     </div>

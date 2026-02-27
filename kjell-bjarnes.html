@@ -85,7 +85,7 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 .form-row.full { grid-template-columns: 1fr; }
 .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 0.9rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 1px solid rgba(0,0,0,0.1); background: var(--cream); font-family: var(--sans); font-size: 1rem; color: var(--charcoal); transition: border-color 0.3s; outline: none; border-radius: 0; -webkit-appearance: none; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
 .form-group textarea { resize: vertical; min-height: 100px; }
 .form-group select { cursor: pointer; }
@@ -181,7 +181,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
       <li><a href="/#rooms">Lokaler</a></li>
       <li><a href="/#offices">Kontorer</a></li>
       <li><a href="/#events">Hva skjer</a></li>
-      <li><a href="/#kontakt">Kontakt</a></li>
+      <li><a href="/historie">Historie</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
@@ -261,9 +261,8 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
         <div class="room-about-eyebrow">Om Kjell Bjarnes</div>
         <h2 class="room-about-title">Fleksibelt og <em>moderne</em></h2>
         <div class="room-about-divider"></div>
-        <p>Kjell Bjarnes er et lyst og fleksibelt møterom med plass til opptil 25 personer. Rommet er utstyrt med moderne AV-utstyr og er tilrettelagt for alt fra daglige teammøter til workshops, presentasjoner og seminarer.</p>
-        <p>Den fleksible møbleringen gjør det enkelt å tilpasse rommet til ulike behov — enten det er klassisk konferanseoppsett, klasserom eller kabaretform. Dagslys og gode akustiske forhold gjør lange arbeidsdager behagelige.</p>
-        <p>Catering fra Ellings Restaurant kan bestilles enkelt, slik at du kan fokusere på det som virkelig teller.</p>
+        <p>Kjell Bjarnes er et lyst og fleksibelt rom med plass til opptil 25 personer. Rommet er til daglig brukt som husets kantine, men fungerer godt som møterom på kvelden.</p>
+        <p>Den fleksible møbleringen gjør det enkelt å tilpasse rommet til ulike behov. Mat og drikke kan bestilles fra Ellings.</p>
       </div>
       <div class="reveal reveal-delay-1">
         <div class="room-features-label">Fasiliteter</div>
@@ -274,11 +273,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Moderne AV-utstyr og storskjerm
-          </li>
-          <li class="room-feature">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Videokonferanseutstyr
+            Storskjerm
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -286,19 +281,11 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Whiteboard
-          </li>
-          <li class="room-feature">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
             Fleksibel møblering
           </li>
           <li class="room-feature">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Dagslys
-          </li>
-          <li class="room-feature">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            Catering fra Ellings Restaurant
+            Servering fra Ellings
           </li>
         </ul>
       </div>
@@ -324,11 +311,8 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
             <label>Type arrangement</label>
             <select name="arrangement">
               <option value="">Velg type</option>
-              <option>Konferanse</option>
               <option>Møte</option>
               <option>Firmafest</option>
-              <option>Bryllup</option>
-              <option>Jubileum</option>
               <option>Bursdag</option>
               <option>Annet</option>
             </select>
@@ -398,7 +382,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
         <h4>Lokaler</h4>
         <ul>
           <li><a href="/festsalen">Festsalen</a></li>
-          <li><a href="/borgemesteren">Borgemesteren</a></li>
+          <li><a href="/borgermesteren">Borgermesteren</a></li>
           <li><a href="/kjell-bjarnes">Kjell Bjarnes</a></li>
         </ul>
       </div>
@@ -409,6 +393,7 @@ footer { padding: 5rem 0 3rem; background: var(--warm-black); }
           <li><a href="/menyer">Selskapsmenyer</a></li>
           <li><a href="/#offices">Kontorer</a></li>
           <li><a href="/#events">Arrangementer</a></li>
+          <li><a href="/historie">Historie</a></li>
           <li><a href="/#booking">Booking</a></li>
         </ul>
       </div>

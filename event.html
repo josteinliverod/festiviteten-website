@@ -251,6 +251,19 @@ nav.scrolled .nav-links a:hover { color: var(--gold); }
   }
   .nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: background 0.3s; }
   nav.scrolled .nav-toggle span { background: var(--charcoal); }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    padding: 2rem;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .nav-links.open a { color: var(--charcoal) !important; }
   .event-layout { grid-template-columns: 1fr; }
   .event-info-card { position: static; }
 }
@@ -270,7 +283,7 @@ nav.scrolled .nav-links a:hover { color: var(--gold); }
       <li><a href="/#rooms">Lokaler</a></li>
       <li><a href="/#offices">Kontorer</a></li>
       <li><a href="/#events">Hva skjer</a></li>
-      <li><a href="/#kontakt">Kontakt</a></li>
+      <li><a href="/historie">Historie</a></li>
       <li><a href="/#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
