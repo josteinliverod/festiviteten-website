@@ -161,6 +161,79 @@
     .timeline-img { width: 100%; margin-top: 1rem; display: block; cursor: zoom-in; transition: opacity 0.2s; }
     .timeline-img:hover { opacity: 0.85; }
     .timeline-img-caption { font-size: 0.75rem; color: var(--muted); font-style: italic; margin-top: 0.4rem; }
+    /* ─── BOOK POPUP ─── */
+    .book-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(13,11,9,0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .book-popup-overlay.active { display: flex; }
+    .book-popup {
+      background: var(--warm-black);
+      border: 1px solid rgba(196,149,106,0.3);
+      max-width: 480px;
+      width: 100%;
+      padding: 3rem 2.5rem 2.5rem;
+      position: relative;
+      animation: fadeUp 0.5s var(--ease-out) both;
+      text-align: center;
+    }
+    .book-popup-close {
+      position: absolute;
+      top: 1rem; right: 1.25rem;
+      background: none;
+      color: rgba(255,255,255,0.4);
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+    .book-popup-close:hover { color: #fff; }
+    .book-popup-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .book-popup h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+    .book-popup h2 em { font-style: italic; color: var(--gold-light); }
+    .book-popup p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .book-popup-btn {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .book-popup-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+    @media (max-width: 600px) {
+      .book-popup { padding: 2.5rem 1.75rem 2rem; }
+    }
+
     /* ─── LIGHTBOX ─── */
     .lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(13,11,9,0.93); align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
     .lightbox.active { display: flex; }
@@ -657,6 +730,17 @@
     </div>
   </footer>
 
+  <!-- Book Popup -->
+  <div class="book-popup-overlay" id="bookPopup">
+    <div class="book-popup">
+      <button class="book-popup-close" id="bookPopupClose" aria-label="Lukk">&times;</button>
+      <p class="book-popup-eyebrow">Vil du vite mer?</p>
+      <h2>Dykk dypere inn i <em>historien</em></h2>
+      <p>Boken om Festiviteten tar deg gjennom over 200 år med drama, musikk, politikk og gjenoppbygging — fra kjøpmannsgård til byens storstue.</p>
+      <a href="#" class="book-popup-btn">Bestill boken</a>
+    </div>
+  </div>
+
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightboxClose" aria-label="Lukk">&times;</button>
@@ -678,6 +762,30 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Book popup — show after scrolling 40% of page, once per session
+    const bookPopup = document.getElementById('bookPopup');
+    const bookPopupClose = document.getElementById('bookPopupClose');
+    let popupShown = sessionStorage.getItem('bookPopupShown');
+    function checkPopup() {
+      if (popupShown) return;
+      const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      if (scrolled > 0.4) {
+        bookPopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        sessionStorage.setItem('bookPopupShown', '1');
+        popupShown = true;
+        window.removeEventListener('scroll', checkPopup);
+      }
+    }
+    window.addEventListener('scroll', checkPopup);
+    function closeBookPopup() {
+      bookPopup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    bookPopupClose.addEventListener('click', closeBookPopup);
+    bookPopup.addEventListener('click', e => { if (e.target === bookPopup) closeBookPopup(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBookPopup(); });
 
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
