@@ -1511,9 +1511,16 @@ if (heroVideo) {
 
 // ─── Nav scroll effect
 const nav = document.getElementById('nav');
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
+  if (!scrollTicking) {
+    requestAnimationFrame(() => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
+}, { passive: true });
 
 // ─── Mobile nav toggle
 document.getElementById('navToggle').addEventListener('click', () => {
