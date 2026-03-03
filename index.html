@@ -1063,6 +1063,47 @@ footer {
   .hagen-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
   .hagen-photos { grid-template-columns: 1fr !important; height: auto !important; min-height: 320px; }
 }
+
+/* ─── MENU LIGHTBOX ─── */
+#menuLightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,11,9,0.88);
+  backdrop-filter: blur(8px);
+  z-index: 300;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+#menuLightbox.show { display: flex; opacity: 1; }
+#menuLightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  animation: scaleReveal 0.4s var(--ease-out);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 0;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.22); }
 </style>
 </head>
 <body>
@@ -1243,7 +1284,7 @@ footer {
         <p style="font-size:0.85rem;font-weight:300;color:rgba(255,255,255,0.45);margin-top:1rem;line-height:1.6;">Kjøkkenet stenger kl. 19 søndag – torsdag, og kl. 20 fredag og lørdag.</p>
         <div class="restaurant-cta">
           <a href="https://booking.resdiary.com/widget/Standard/FestivitetenLarvik/28255?fbclid=IwAR0xEOUXBmO0zsWVe3i8kfGW2BQxm5GMyFjjpiTOCJWcviBV9gOSWFjGWC0" target="_blank" rel="noopener" class="btn-gold">Reserver bord</a>
-          <a href="assets/files/ellings-menu-february-2026.jpg" target="_blank" rel="noopener" class="btn-ghost">Se menyen</a>
+          <button onclick="openMenuLightbox()" class="btn-ghost">Se menyen</button>
         </div>
       </div>
       <div class="restaurant-images reveal reveal-delay-2">
@@ -1502,6 +1543,12 @@ footer {
   </div>
 </div>
 
+<!-- ═══ MENU LIGHTBOX ═══ -->
+<div id="menuLightbox">
+  <button class="lightbox-close" onclick="closeMenuLightbox()" aria-label="Lukk">&times;</button>
+  <img src="assets/files/ellings-menu-february-2026.jpg" alt="Ellings meny">
+</div>
+
 <script>
 // ─── Hero video load handler
 const heroVideo = document.getElementById('heroVideo');
@@ -1666,6 +1713,22 @@ function closeModal() {
 }
 document.getElementById('modalOverlay').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closeModal();
+});
+
+// ─── Menu lightbox
+function openMenuLightbox() {
+  document.getElementById('menuLightbox').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenuLightbox() {
+  document.getElementById('menuLightbox').classList.remove('show');
+  document.body.style.overflow = '';
+}
+document.getElementById('menuLightbox').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeMenuLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenuLightbox();
 });
 </script>
 
