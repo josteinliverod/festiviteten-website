@@ -1645,7 +1645,8 @@ async function handleBookingSubmit(e) {
     grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   }
 
-  const query = encodeURIComponent('*[_type == "event"] | order(date asc)[0...3]');
+  const cutoff = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  const query = encodeURIComponent(`*[_type == "event" && date >= "${cutoff}"] | order(date asc)[0...3]`);
   fetch(`https://${projectId}.apicdn.sanity.io/v2021-10-21/data/query/${dataset}?query=${query}`)
     .then(r => r.json())
     .then(data => renderEvents(data.result))
