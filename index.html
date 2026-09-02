@@ -176,6 +176,20 @@ nav.scrolled .nav-links a { color: var(--charcoal); }
 }
 .nav-book::after { display: none !important; }
 .nav-book:hover { background: var(--gold-light); transform: translateY(-1px); }
+.nav-jule {
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--gold);
+  color: var(--gold-light) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: all 0.3s var(--ease);
+}
+.nav-jule::after { display: none !important; }
+.nav-jule:hover { background: var(--gold); color: var(--white) !important; transform: translateY(-1px); }
+nav.scrolled .nav-jule { color: var(--gold) !important; }
+nav.scrolled .nav-jule:hover { color: var(--white) !important; }
 
 /* Mobile nav */
 .nav-toggle {
@@ -1081,6 +1095,7 @@ footer {
       <li><a href="#offices">Kontorer</a></li>
       <li><a href="#events">Hva skjer</a></li>
       <li><a href="/historie">Historie</a></li>
+      <li><a href="/julebord" class="nav-jule">Julebord</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
@@ -1474,6 +1489,7 @@ footer {
           <li><a href="/menyer">Selskapsmenyer</a></li>
           <li><a href="#offices">Kontorer</a></li>
           <li><a href="#events">Arrangementer</a></li>
+          <li><a href="/julebord">Julebord</a></li>
           <li><a href="/historie">Historie</a></li>
         </ul>
       </div>
