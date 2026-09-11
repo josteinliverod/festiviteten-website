@@ -135,20 +135,25 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .julemeny .section-title { color: var(--white); }
     .julemeny-intro { max-width: 620px; margin: -2.5rem auto 4rem; text-align: center; }
     .julemeny-intro p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.6); }
-    .julemeny-card { max-width: 780px; margin: 0 auto; background: rgba(255,255,255,0.03); border: 1px solid rgba(196,149,106,0.3); padding: clamp(2.5rem, 6vw, 5rem); position: relative; }
-    .julemeny-card::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--gold); }
-    .julemeny-group { margin-bottom: 3rem; }
-    .julemeny-group:last-of-type { margin-bottom: 0; }
-    .julemeny-group-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 0.5rem; }
-    .julemeny-group-divider { width: 40px; height: 1px; background: rgba(196,149,106,0.5); margin: 0 auto 1.75rem; }
-    .julemeny-items { list-style: none; }
-    .julemeny-item { text-align: center; padding: 0.6rem 0; }
-    .julemeny-item-name { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--white); line-height: 1.35; }
-    .julemeny-item-detail { font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.5); margin-top: 0.2rem; line-height: 1.5; }
-    .julemeny-note { text-align: center; font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.45); margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(196,149,106,0.2); line-height: 1.7; }
+    .julemeny-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .julemeny-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,149,106,0.3); padding: 2.75rem 2rem; position: relative; text-align: center; display: flex; flex-direction: column; }
+    .julemeny-card::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold); }
+    .julemeny-card.wide { grid-column: 1 / -1; padding: 3rem clamp(2rem, 5vw, 4rem); }
+    .julemeny-alt-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+    .julemeny-alt-price { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 0.4rem; }
+    .julemeny-alt-sub { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.5); margin-bottom: 1.75rem; }
+    .julemeny-alt-divider { width: 40px; height: 1px; background: rgba(196,149,106,0.5); margin: 0 auto 1.75rem; }
+    .julemeny-course { margin-bottom: 1.6rem; }
+    .julemeny-course:last-of-type { margin-bottom: 0; }
+    .julemeny-course-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(212,171,132,0.75); margin-bottom: 0.4rem; }
+    .julemeny-course-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--white); line-height: 1.4; }
+    .julemeny-tapas-items { list-style: none; columns: 3; column-gap: 3rem; text-align: left; max-width: 820px; margin: 0 auto; }
+    .julemeny-tapas-items li { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--white); line-height: 1.4; padding: 0.45rem 0; break-inside: avoid; display: flex; align-items: baseline; gap: 0.6rem; }
+    .julemeny-tapas-items li::before { content: '·'; color: var(--gold); flex-shrink: 0; }
+    .julemeny-note { text-align: center; font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.45); max-width: 1100px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(196,149,106,0.2); line-height: 1.7; }
     .julemeny-note a { color: var(--gold-light); border-bottom: 1px solid rgba(212,171,132,0.4); transition: border-color 0.3s; }
     .julemeny-note a:hover { border-color: var(--gold-light); }
-    .julemeny-cta { text-align: center; margin-top: 3.5rem; }
+    .julemeny-cta { text-align: center; margin-top: 3.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     /* Gallery */
     .room-gallery { padding: 8rem 0; background: var(--cream); }
     .room-gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 1rem; }
@@ -192,6 +197,14 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       .room-hero-ctas { flex-direction: column; }
       .room-gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; }
       .room-gallery-item, .room-gallery-item.tall { height: 240px; grid-row: auto; }
+      .julemeny-tapas-items { columns: 1; max-width: 300px; }
+    }
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .julemeny-grid { grid-template-columns: 1fr; max-width: 560px; }
+      .julemeny-tapas-items { columns: 2; }
+    }
+    @media (max-width: 768px) {
+      .julemeny-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -358,66 +371,91 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
         <div class="section-divider"></div>
       </div>
       <div class="julemeny-intro reveal">
-        <p>Vår julemeny er en hyllest til den norske juletradisjonen — laget fra bunnen av med råvarer av høy kvalitet.</p>
+        <p>Velg mellom tre 3-retters menyer eller vår juletapas — alt laget fra bunnen av med råvarer av høy kvalitet.</p>
       </div>
-      <div class="julemeny-card reveal">
-        <div class="julemeny-group">
-          <p class="julemeny-group-title">Kaldt</p>
-          <div class="julemeny-group-divider"></div>
-          <ul class="julemeny-items">
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Sild i utvalgte varianter</p>
-              <p class="julemeny-item-detail">med rødløk, egg og hjemmebakt brød</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Røkt og gravet laks</p>
-              <p class="julemeny-item-detail">med sennepssaus og dillstuede poteter</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Juleskinke</p>
-              <p class="julemeny-item-detail">med tilbehør</p>
-            </li>
+      <div class="julemeny-grid">
+        <div class="julemeny-card reveal">
+          <p class="julemeny-alt-label">Alternativ 1</p>
+          <p class="julemeny-alt-price">695,-</p>
+          <p class="julemeny-alt-sub">3 retter</p>
+          <div class="julemeny-alt-divider"></div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Forrett</p>
+            <p class="julemeny-course-name">Lettbakt laks med avokadokrem og ponzusaus</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Hovedrett</p>
+            <p class="julemeny-course-name">Langtidsstekt kalvebryst med aspargesbønner, grønnkål, potetpuré og hollandaise</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Dessert</p>
+            <p class="julemeny-course-name">Sjokoladefondant med vaniljeis</p>
+          </div>
+        </div>
+        <div class="julemeny-card reveal reveal-delay-1">
+          <p class="julemeny-alt-label">Alternativ 2</p>
+          <p class="julemeny-alt-price">695,-</p>
+          <p class="julemeny-alt-sub">3 retter</p>
+          <div class="julemeny-alt-divider"></div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Forrett</p>
+            <p class="julemeny-course-name">Vaffel med røkelaks</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Hovedrett</p>
+            <p class="julemeny-course-name">Ribbe med puffet svor og klassisk tilbehør</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Dessert</p>
+            <p class="julemeny-course-name">Riskrem med rød saus og julekrydder</p>
+          </div>
+        </div>
+        <div class="julemeny-card reveal reveal-delay-2">
+          <p class="julemeny-alt-label">Alternativ 3</p>
+          <p class="julemeny-alt-price">695,-</p>
+          <p class="julemeny-alt-sub">3 retter</p>
+          <div class="julemeny-alt-divider"></div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Forrett</p>
+            <p class="julemeny-course-name">Vaffel med røkelaks</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Hovedrett</p>
+            <p class="julemeny-course-name">Bakt torsk med rosenkål, ertepuré, hollandaise og potet</p>
+          </div>
+          <div class="julemeny-course">
+            <p class="julemeny-course-label">Dessert</p>
+            <p class="julemeny-course-name">Riskrem med rød saus og julekrydder</p>
+          </div>
+        </div>
+        <div class="julemeny-card wide reveal">
+          <p class="julemeny-alt-label">Alternativ 4 · Juletapas</p>
+          <p class="julemeny-alt-price">895,-</p>
+          <p class="julemeny-alt-sub">Et variert utvalg av kalde og varme retter</p>
+          <div class="julemeny-alt-divider"></div>
+          <ul class="julemeny-tapas-items">
+            <li>Gravet laks</li>
+            <li>Røkelaks</li>
+            <li>Blåmuggost med pepperkake og fiken</li>
+            <li>Chèvre med pepperkake og fiken</li>
+            <li>Dadler med bacon</li>
+            <li>Ribbe med puffet svor</li>
+            <li>Medisterkake</li>
+            <li>Pølse</li>
+            <li>Rødkål</li>
+            <li>Surkål</li>
+            <li>Saus</li>
+            <li>Potet</li>
+            <li>Riskrem med rød saus</li>
+            <li>Karamellpudding</li>
+            <li>Multekrem</li>
           </ul>
         </div>
-        <div class="julemeny-group">
-          <p class="julemeny-group-title">Varmt</p>
-          <div class="julemeny-group-divider"></div>
-          <ul class="julemeny-items">
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Ribbe</p>
-              <p class="julemeny-item-detail">med medisterkaker, julepølse og sprø svor</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Pinnekjøtt</p>
-              <p class="julemeny-item-detail">med kålrotstappe</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Klassisk tilbehør</p>
-              <p class="julemeny-item-detail">surkål, rødkål, poteter og sjy</p>
-            </li>
-          </ul>
-        </div>
-        <div class="julemeny-group">
-          <p class="julemeny-group-title">Søtt</p>
-          <div class="julemeny-group-divider"></div>
-          <ul class="julemeny-items">
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Riskrem</p>
-              <p class="julemeny-item-detail">med rød saus</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Multekrem</p>
-              <p class="julemeny-item-detail">med krumkake</p>
-            </li>
-            <li class="julemeny-item">
-              <p class="julemeny-item-name">Julens småkaker og kaffe</p>
-            </li>
-          </ul>
-        </div>
-        <p class="julemeny-note">Menyen tilpasses gjerne ditt selskap — vi tar selvsagt hensyn til allergier og ønsker. Ønsker du noe annet enn tradisjonell julemat? Se også våre <a href="/menyer">selskapsmenyer</a>.</p>
       </div>
+      <p class="julemeny-note reveal">Menyen tilpasses gjerne ditt selskap — vi tar selvsagt hensyn til allergier og ønsker. Ønsker du noe annet enn tradisjonell julemat? Se også våre <a href="/menyer">selskapsmenyer</a>.</p>
       <div class="julemeny-cta reveal">
         <a href="#booking" class="btn-primary">Book julebord</a>
+        <a href="assets/files/Julemeny - Festiviteten.pdf" target="_blank" rel="noopener" class="btn-outline">Last ned julemenyen (PDF)</a>
       </div>
     </div>
   </section>
