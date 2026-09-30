@@ -207,6 +207,30 @@ nav.scrolled .nav-jule:hover { color: var(--white) !important; }
   transition: all 0.3s;
 }
 nav.scrolled .nav-toggle span { background: var(--charcoal); }
+.nav-links { gap: 2rem; }
+.nav-links a { white-space: nowrap; }
+@media (max-width: 1260px) {
+  .nav-links { gap: 1.25rem; }
+}
+@media (max-width: 1160px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    padding: 2rem;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .nav-links.open a { color: var(--charcoal) !important; }
+  .nav-links.open .nav-book { color: var(--white) !important; }
+}
 
 /* ─── HERO ─── */
 .hero {
@@ -1095,7 +1119,7 @@ footer {
       <li><a href="#offices">Kontorer</a></li>
       <li><a href="#events">Hva skjer</a></li>
       <li><a href="/historie">Historie</a></li>
-      <li><a href="/julebord" class="nav-jule">Julebord</a></li>
+      <li><a href="/julebord" class="nav-jule">Book julebord</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Meny">
