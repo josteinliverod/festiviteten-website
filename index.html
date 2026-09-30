@@ -212,9 +212,13 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
 @media (max-width: 1260px) {
   .nav-links { gap: 1.25rem; }
 }
+.nav-actions { display: none; }
 @media (max-width: 1160px) {
   .nav-links { display: none; }
+  .nav-actions { display: flex; align-items: center; gap: 1rem; }
   .nav-toggle { display: flex; }
+  .nav-jule-item { display: none; }
+  .nav-jule-bar { padding: 0.5rem 1rem; font-size: 0.68rem !important; white-space: nowrap; }
   .nav-links.open {
     display: flex;
     flex-direction: column;
@@ -230,6 +234,11 @@ nav.scrolled .nav-toggle span { background: var(--charcoal); }
   }
   .nav-links.open a { color: var(--charcoal) !important; }
   .nav-links.open .nav-book { color: var(--white) !important; }
+}
+@media (max-width: 480px) {
+  .nav-logo-img { height: 24px; }
+  .nav-actions { gap: 0.75rem; }
+  .nav-jule-bar { padding: 0.45rem 0.75rem; letter-spacing: 0.1em; }
 }
 
 /* ─── HERO ─── */
@@ -1119,12 +1128,15 @@ footer {
       <li><a href="#offices">Kontorer</a></li>
       <li><a href="#events">Hva skjer</a></li>
       <li><a href="/historie">Historie</a></li>
-      <li><a href="/julebord" class="nav-jule">Book julebord</a></li>
+      <li class="nav-jule-item"><a href="/julebord" class="nav-jule">Book julebord</a></li>
       <li><a href="#booking" class="nav-book">Booking</a></li>
     </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Meny">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-actions">
+      <a href="/julebord" class="nav-jule nav-jule-bar">Book julebord</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Meny">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
