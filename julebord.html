@@ -30,6 +30,7 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       --blush: #E2BAA8; --blush-light: #F5E6DD; --blush-pale: #FBF3EF;
       --cream: #FFFAF7; --charcoal: #1A1A1A; --warm-black: #0D0B09;
       --gold: #C4956A; --gold-light: #D4AB84; --ink: #2C2420; --muted: #7A6E66; --white: #FFFFFF;
+      --pine: #17332B; --pine-deep: #0F231D;
       --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Outfit', sans-serif;
       --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94); --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -42,9 +43,12 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes lineGrow { from { width: 0; } to { width: 40px; } }
+    @keyframes snowfall { to { background-position: 0 320px, 0 480px; } }
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease-out); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* Nav */
     nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.25rem 0; transition: all 0.5s var(--ease); }
     nav.scrolled { background: rgba(255,250,247,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 0.75rem 0; box-shadow: 0 1px 0 rgba(194,149,106,0.15); }
     nav .container { display: flex; align-items: center; justify-content: space-between; }
@@ -55,7 +59,7 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
     .nav-links a { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.85); transition: color 0.3s; position: relative; }
     .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s var(--ease); }
-    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
     nav.scrolled .nav-links a { color: var(--charcoal); }
     .nav-book { padding: 0.65rem 1.75rem; background: var(--gold); color: var(--white) !important; font-size: 0.75rem !important; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; transition: all 0.3s var(--ease); }
     .nav-book::after { display: none !important; }
@@ -63,18 +67,108 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; }
     .nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: all 0.3s; }
     nav.scrolled .nav-toggle span { background: var(--charcoal); }
+
+    /* Shared */
     .section-header { text-align: center; margin-bottom: 4rem; }
     .section-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
     .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 300; color: var(--charcoal); line-height: 1.15; }
     .section-title em { font-style: italic; font-weight: 400; }
-    .section-divider { width: 50px; height: 1px; background: var(--gold); margin: 1.5rem auto 0; }
+    .orn { display: flex; align-items: center; justify-content: center; gap: 0.9rem; color: var(--gold); margin: 1.5rem auto 0; width: 140px; }
+    .orn::before, .orn::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.55; }
+    .orn svg { flex-shrink: 0; }
     .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2rem; background: var(--gold); color: var(--white); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; transition: all 0.35s var(--ease); }
     .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,149,106,0.3); }
     .btn-outline { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2rem; background: transparent; border: 1px solid rgba(255,255,255,0.35); color: var(--white); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: all 0.35s var(--ease); }
     .btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
-    .booking { padding: 8rem 0; background: var(--cream); }
+
+    /* Hero */
+    .jb-hero { position: relative; height: 85vh; min-height: 580px; display: flex; align-items: flex-end; overflow: hidden; background: var(--pine-deep); }
+    .jb-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+    .jb-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,35,29,0.45) 0%, rgba(15,35,29,0.55) 45%, rgba(9,20,17,0.92) 100%); }
+    .jb-snow { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.55;
+      background-image:
+        radial-gradient(2px 2px at 30px 40px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 120px 110px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 210px 20px, rgba(255,255,255,0.85), transparent),
+        radial-gradient(1.5px 1.5px at 270px 170px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 70px 220px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 180px 270px, rgba(255,255,255,0.75), transparent),
+        radial-gradient(3px 3px at 300px 60px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(3px 3px at 90px 330px, rgba(255,255,255,0.6), transparent);
+      background-size: 320px 320px, 480px 480px;
+      animation: snowfall 42s linear infinite; }
+    .jb-hero-content { position: relative; z-index: 2; padding-bottom: 5rem; animation: fadeUp 1s var(--ease-out) 0.2s both; }
+    .jb-hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.9rem; }
+    .jb-hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold-light); animation: lineGrow 0.8s var(--ease) 0.6s both; }
+    .jb-hero h1 { font-family: var(--serif); font-size: clamp(3.2rem, 8vw, 6rem); font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 1.25rem; letter-spacing: -0.01em; }
+    .jb-hero h1 em { font-style: italic; color: var(--blush); }
+    .jb-hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.75); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; }
+    .jb-hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Intro */
+    .jb-intro { padding: 7rem 0; background: var(--cream); }
+    .jb-intro-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 6rem; align-items: center; }
+    .jb-intro-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .jb-intro-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; }
+    .jb-intro-title em { font-style: italic; font-weight: 400; color: var(--gold); }
+    .jb-intro .orn { margin: 1.5rem 0; justify-content: flex-start; }
+    .jb-intro-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--muted); margin-bottom: 1.25rem; }
+    .jb-intro-text p:last-child { margin-bottom: 0; }
+    .jb-facts { list-style: none; border-top: 1px solid rgba(196,149,106,0.25); }
+    .jb-fact { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 1.6rem 0; border-bottom: 1px solid rgba(196,149,106,0.25); }
+    .jb-fact-value { font-family: var(--serif); font-size: 2.1rem; font-weight: 400; color: var(--pine); line-height: 1.1; }
+    .jb-fact-label { font-size: 0.85rem; font-weight: 300; color: var(--muted); text-align: right; line-height: 1.5; }
+
+    /* Julemeny */
+    .julemeny { padding: 8rem 0; background: var(--pine); position: relative; overflow: hidden; }
+    .julemeny::before { content: ''; position: absolute; top: -20%; left: 50%; width: 900px; height: 600px; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(196,149,106,0.14), transparent 65%); pointer-events: none; }
+    .julemeny .container { position: relative; }
+    .julemeny .section-title { color: var(--white); }
+    .julemeny-intro { max-width: 560px; margin: -2.5rem auto 4rem; text-align: center; }
+    .julemeny-intro p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.65); }
+    .julemeny-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .julemeny-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(196,149,106,0.28); padding: 2.75rem 2rem; position: relative; text-align: center; display: flex; flex-direction: column; }
+    .julemeny-card::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold); }
+    .julemeny-card.wide { grid-column: 1 / -1; padding: 3rem clamp(2rem, 5vw, 4rem); }
+    .julemeny-alt-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.6rem; }
+    .julemeny-alt-price { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 0.4rem; }
+    .julemeny-alt-sub { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.55); margin-bottom: 1.75rem; }
+    .julemeny-alt-divider { width: 40px; height: 1px; background: rgba(196,149,106,0.55); margin: 0 auto 1.75rem; }
+    .julemeny-course { margin-bottom: 1.6rem; }
+    .julemeny-course:last-of-type { margin-bottom: 0; }
+    .julemeny-course-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(212,171,132,0.8); margin-bottom: 0.4rem; }
+    .julemeny-course-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--white); line-height: 1.4; }
+    .julemeny-tapas-items { list-style: none; columns: 3; column-gap: 3rem; text-align: left; max-width: 820px; margin: 0 auto; }
+    .julemeny-tapas-items li { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--white); line-height: 1.4; padding: 0.45rem 0; break-inside: avoid; display: flex; align-items: baseline; gap: 0.6rem; }
+    .julemeny-tapas-items li::before { content: '·'; color: var(--gold); flex-shrink: 0; }
+    .julemeny-note { text-align: center; font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.55); max-width: 1100px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(196,149,106,0.22); line-height: 1.7; }
+    .julemeny-note a { color: var(--gold-light); border-bottom: 1px solid rgba(212,171,132,0.4); transition: border-color 0.3s; }
+    .julemeny-note a:hover { border-color: var(--gold-light); }
+    .julemeny-cta { text-align: center; margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* Gallery */
+    .jb-gallery { padding: 8rem 0 6rem; background: var(--cream); }
+    .jb-gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 1rem; }
+    .jb-gallery-item { overflow: hidden; }
+    .jb-gallery-item.tall { grid-row: span 2; }
+    .jb-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+    .jb-gallery-item:hover img { transform: scale(1.04); }
+
+    /* Lokaler */
+    .jb-rooms { padding: 0 0 8rem; background: var(--cream); }
+    .jb-rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(196,149,106,0.25); }
+    .jb-room { display: block; padding: 2.5rem 2rem 2.5rem 0; border-bottom: 1px solid rgba(196,149,106,0.25); transition: padding 0.4s var(--ease); }
+    .jb-room + .jb-room { padding-left: 2rem; border-left: 1px solid rgba(196,149,106,0.25); }
+    .jb-room-cap { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .jb-room-name { font-family: var(--serif); font-size: 1.9rem; font-weight: 400; color: var(--charcoal); line-height: 1.15; margin-bottom: 0.4rem; }
+    .jb-room-desc { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .jb-room-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); transition: gap 0.3s var(--ease); }
+    .jb-room:hover .jb-room-link { gap: 0.85rem; }
+
+    /* Booking */
+    .booking { padding: 7rem 0 8rem; background: var(--blush-pale); }
     .booking-wrapper { background: var(--white); border: 1px solid rgba(196,149,106,0.15); padding: 4rem; max-width: 900px; margin: 0 auto; position: relative; }
-    .booking-wrapper::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--gold); }
+    .booking-wrapper::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--pine); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     .form-row.full { grid-template-columns: 1fr; }
     .form-group label { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
@@ -84,6 +178,8 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .form-group select { cursor: pointer; }
     .btn-submit { width: 100%; padding: 1.1rem; background: var(--gold); color: var(--white); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: none; transition: all 0.35s var(--ease); margin-top: 0.5rem; }
     .btn-submit:hover { background: var(--gold-light); }
+
+    /* Footer */
     footer { padding: 5rem 0 3rem; background: var(--warm-black); }
     .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
     .footer-brand p { font-size: 0.9rem; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.7; max-width: 280px; }
@@ -96,91 +192,12 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .footer-socials { display: flex; gap: 1.5rem; }
     .footer-socials a { color: rgba(255,255,255,0.4); transition: color 0.3s; font-size: 0.85rem; }
     .footer-socials a:hover { color: var(--gold-light); }
-    /* Hero */
-    .room-hero { position: relative; height: 80vh; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; }
-    .room-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
-    .room-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,11,9,0.15) 0%, rgba(13,11,9,0.4) 50%, rgba(13,11,9,0.8) 100%); }
-    .room-hero-content { position: relative; z-index: 2; padding-bottom: 5rem; animation: fadeUp 1s var(--ease-out) 0.2s both; }
-    .room-hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
-    .room-hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold-light); animation: lineGrow 0.8s var(--ease) 0.6s both; }
-    .room-hero h1 { font-family: var(--serif); font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 1rem; letter-spacing: -0.01em; }
-    .room-hero h1 em { font-style: italic; color: var(--blush); }
-    .room-hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.7); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; }
-    .room-hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    /* Stats bar */
-    .room-stats { background: var(--white); border-bottom: 1px solid rgba(196,149,106,0.15); }
-    .room-stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .room-stat { padding: 1.75rem 1.5rem; border-right: 1px solid rgba(196,149,106,0.12); display: flex; align-items: center; gap: 1rem; }
-    .room-stat:last-child { border-right: none; }
-    .room-stat-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--blush-pale); color: var(--gold); flex-shrink: 0; }
-    .room-stat-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--charcoal); line-height: 1.2; }
-    .room-stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.15rem; }
-    /* About */
-    .room-about { padding: 8rem 0; background: var(--cream); }
-    .room-about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .room-about-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
-    .room-about-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 0.5rem; }
-    .room-about-title em { font-style: italic; font-weight: 400; color: var(--gold); }
-    .room-about-divider { width: 50px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
-    .room-about-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--muted); margin-bottom: 1.25rem; }
-    .room-about-text p:last-child { margin-bottom: 0; }
-    .room-features-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
-    .room-features { list-style: none; }
-    .room-feature { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(196,149,106,0.1); font-size: 0.9rem; font-weight: 300; color: var(--charcoal); line-height: 1.5; }
-    .room-feature:first-child { border-top: 1px solid rgba(196,149,106,0.1); }
-    .room-feature svg { flex-shrink: 0; color: var(--gold); margin-top: 2px; }
-    /* Julemeny */
-    .julemeny { padding: 8rem 0; background: var(--warm-black); position: relative; }
-    .julemeny::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
-    .julemeny .section-title { color: var(--white); }
-    .julemeny-intro { max-width: 620px; margin: -2.5rem auto 4rem; text-align: center; }
-    .julemeny-intro p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: rgba(255,255,255,0.6); }
-    .julemeny-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
-    .julemeny-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,149,106,0.3); padding: 2.75rem 2rem; position: relative; text-align: center; display: flex; flex-direction: column; }
-    .julemeny-card::before { content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gold); }
-    .julemeny-card.wide { grid-column: 1 / -1; padding: 3rem clamp(2rem, 5vw, 4rem); }
-    .julemeny-alt-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
-    .julemeny-alt-price { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 0.4rem; }
-    .julemeny-alt-sub { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.5); margin-bottom: 1.75rem; }
-    .julemeny-alt-divider { width: 40px; height: 1px; background: rgba(196,149,106,0.5); margin: 0 auto 1.75rem; }
-    .julemeny-course { margin-bottom: 1.6rem; }
-    .julemeny-course:last-of-type { margin-bottom: 0; }
-    .julemeny-course-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(212,171,132,0.75); margin-bottom: 0.4rem; }
-    .julemeny-course-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--white); line-height: 1.4; }
-    .julemeny-tapas-items { list-style: none; columns: 3; column-gap: 3rem; text-align: left; max-width: 820px; margin: 0 auto; }
-    .julemeny-tapas-items li { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--white); line-height: 1.4; padding: 0.45rem 0; break-inside: avoid; display: flex; align-items: baseline; gap: 0.6rem; }
-    .julemeny-tapas-items li::before { content: '·'; color: var(--gold); flex-shrink: 0; }
-    .julemeny-note { text-align: center; font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.45); max-width: 1100px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(196,149,106,0.2); line-height: 1.7; }
-    .julemeny-note a { color: var(--gold-light); border-bottom: 1px solid rgba(212,171,132,0.4); transition: border-color 0.3s; }
-    .julemeny-note a:hover { border-color: var(--gold-light); }
-    .julemeny-cta { text-align: center; margin-top: 3.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    /* Gallery */
-    .room-gallery { padding: 8rem 0; background: var(--cream); }
-    .room-gallery-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 1rem; }
-    .room-gallery-item { overflow: hidden; }
-    .room-gallery-item.tall { grid-row: span 2; }
-    .room-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
-    .room-gallery-item:hover img { transform: scale(1.04); }
-    /* Venue cards */
-    .venue-cards { padding: 8rem 0; background: var(--blush-pale); position: relative; }
-    .venue-cards::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--blush), transparent); }
-    .venue-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .venue-card { position: relative; border-radius: 2px; overflow: hidden; cursor: pointer; display: block; }
-    .venue-card-img { height: 260px; overflow: hidden; }
-    .venue-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
-    .venue-card:hover .venue-card-img img { transform: scale(1.04); }
-    .venue-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,11,9,0.75) 0%, transparent 55%); transition: background 0.4s; }
-    .venue-card:hover .venue-card-overlay { background: linear-gradient(to top, rgba(13,11,9,0.88) 0%, rgba(13,11,9,0.1) 65%); }
-    .venue-card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.75rem; }
-    .venue-card-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--white); margin-bottom: 0.25rem; }
-    .venue-card-detail { font-size: 0.82rem; color: rgba(255,255,255,0.65); font-weight: 300; }
-    .venue-card-capacity { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem; padding: 0.3rem 0.75rem; background: rgba(196,149,106,0.2); border: 1px solid rgba(196,149,106,0.35); color: var(--gold-light); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; }
+
     /* Responsive */
     @media (max-width: 1024px) {
-      .room-stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .room-stat:nth-child(2) { border-right: none; }
-      .room-about-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .venue-grid { grid-template-columns: 1fr; }
+      .jb-intro-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+      .julemeny-grid { grid-template-columns: 1fr; max-width: 560px; }
+      .julemeny-tapas-items { columns: 2; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
@@ -188,23 +205,22 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       .nav-toggle { display: flex; }
       .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); padding: 2rem; gap: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
       .nav-links.open a { color: var(--charcoal) !important; }
-      .room-stats-inner { grid-template-columns: 1fr 1fr; }
-      .room-stat { padding: 1.25rem 1rem; }
+      .jb-hero-ctas { flex-direction: column; }
+      .jb-intro, .julemeny { padding: 5rem 0; }
+      .jb-gallery { padding: 5rem 0 4rem; }
+      .jb-gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+      .jb-gallery-item, .jb-gallery-item.tall { height: 240px; grid-row: auto; }
+      .jb-rooms-grid { grid-template-columns: 1fr; }
+      .jb-room, .jb-room + .jb-room { padding: 2rem 0; border-left: none; }
+      .julemeny-tapas-items { columns: 1; max-width: 300px; }
       .form-row { grid-template-columns: 1fr; }
+      .booking { padding: 5rem 0; }
       .booking-wrapper { padding: 2.5rem 1.5rem; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-      .room-hero-ctas { flex-direction: column; }
-      .room-gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; }
-      .room-gallery-item, .room-gallery-item.tall { height: 240px; grid-row: auto; }
-      .julemeny-tapas-items { columns: 1; max-width: 300px; }
     }
-    @media (max-width: 1024px) and (min-width: 769px) {
-      .julemeny-grid { grid-template-columns: 1fr; max-width: 560px; }
-      .julemeny-tapas-items { columns: 2; }
-    }
-    @media (max-width: 768px) {
-      .julemeny-grid { grid-template-columns: 1fr; }
+    @media (prefers-reduced-motion: reduce) {
+      .jb-snow { animation: none; }
     }
   </style>
 </head>
@@ -220,9 +236,9 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
         <li><a href="/#pillars">Opplev</a></li>
         <li><a href="/#ellings">Ellings</a></li>
         <li><a href="/#rooms">Lokaler</a></li>
-        <li><a href="/julebord">Julebord</a></li>
         <li><a href="/#offices">Kontorer</a></li>
         <li><a href="/#events">Hva skjer</a></li>
+        <li><a href="/julebord" class="active">Julebord</a></li>
         <li><a href="/historie">Historie</a></li>
         <li><a href="#booking" class="nav-book">Booking</a></li>
       </ul>
@@ -233,15 +249,16 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
   </nav>
 
   <!-- Hero -->
-  <section class="room-hero">
-    <div class="room-hero-bg" style="background-image: url('assets/images/festsalen-1.jpg');"></div>
-    <div class="room-hero-overlay"></div>
+  <section class="jb-hero">
+    <div class="jb-hero-bg" style="background-image: url('assets/images/festsalen-1.jpg');"></div>
+    <div class="jb-hero-overlay"></div>
+    <div class="jb-snow" aria-hidden="true"></div>
     <div class="container">
-      <div class="room-hero-content">
-        <p class="room-hero-eyebrow">Julebord · Festiviteten Larvik</p>
+      <div class="jb-hero-content">
+        <p class="jb-hero-eyebrow">Julebord · Festiviteten Larvik</p>
         <h1>Julebord på <em>Festiviteten</em></h1>
-        <p class="room-hero-sub">Feir julen i byens storstue — julebord for små og store bedrifter, venner og familie, i historiske omgivelser midt i Larvik.</p>
-        <div class="room-hero-ctas">
+        <p class="jb-hero-sub">Feir julen i byens storstue — julebord for små og store bedrifter, venner og familie, midt i Larvik.</p>
+        <div class="jb-hero-ctas">
           <a href="#booking" class="btn-primary">Book julebord</a>
           <a href="#julemeny" class="btn-outline">Se julemenyen</a>
         </div>
@@ -249,115 +266,35 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <!-- Stats bar -->
-  <section class="room-stats">
+  <!-- Intro -->
+  <section class="jb-intro" id="om">
     <div class="container">
-      <div class="room-stats-inner">
-        <div class="room-stat">
-          <div class="room-stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div>
-            <div class="room-stat-value">Opptil 100</div>
-            <div class="room-stat-label">Gjester til julebord</div>
-          </div>
-        </div>
-        <div class="room-stat">
-          <div class="room-stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M3 9h18M9 21V9"/>
-            </svg>
-          </div>
-          <div>
-            <div class="room-stat-value">Flere lokaler</div>
-            <div class="room-stat-label">Festsalen, Borgermesteren, Kjell Bjarnes</div>
-          </div>
-        </div>
-        <div class="room-stat">
-          <div class="room-stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-              <path d="M7 2v20M21 15V2"/>
-              <path d="M18 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="room-stat-value">Julemeny</div>
-            <div class="room-stat-label">Fra Ellings Restaurant</div>
-          </div>
-        </div>
-        <div class="room-stat">
-          <div class="room-stat-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-          </div>
-          <div>
-            <div class="room-stat-value">Storgata 33</div>
-            <div class="room-stat-label">Larvik sentrum</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section class="room-about" id="om">
-    <div class="container">
-      <div class="room-about-layout">
+      <div class="jb-intro-layout">
         <div class="reveal">
-          <p class="room-about-eyebrow">Julebord</p>
-          <h2 class="room-about-title">Julestemning i en <em>historisk ramme</em></h2>
-          <div class="room-about-divider"></div>
-          <div class="room-about-text">
-            <p>På Festiviteten kan vi tilby julebord for små og store bedrifter, venner og familie. Med flere møterom og lokaler tilpasser vi julebord for alt fra det lille, intime selskapet til store feiringer med opptil 100 personer.</p>
-            <p>Ellings Restaurant står for julemenyen — tradisjonsrik julemat laget fra bunnen av, servert i ærverdige omgivelser i Norges tredje eldste festsal. Vi hjelper deg gjerne med å skreddersy kvelden, fra aperitiff ved ankomst til dans utover kvelden.</p>
+          <p class="jb-intro-eyebrow">Julebord</p>
+          <h2 class="jb-intro-title">Julestemning i en <em>historisk ramme</em></h2>
+          <div class="orn" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
+          </div>
+          <div class="jb-intro-text">
+            <p>På Festiviteten kan vi tilby julebord for små og store bedrifter, venner og familie. Vi har flere møterom og lokaler, og tilpasser julebordet til akkurat deres gruppe — opptil 100 personer.</p>
+            <p>Ellings Restaurant står for maten, og vi hjelper gjerne med å skreddersy kvelden.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-1">
-          <p class="room-features-label">Dette får du</p>
-          <ul class="room-features">
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Julebord for bedrifter, venner og familie
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Tilpasses grupper opptil 100 personer
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Flere møterom og lokaler i ulike størrelser
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Tradisjonsrik julemeny fra Ellings Restaurant
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Drikkepakker og vinanbefalinger
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Mulighet for musikk og dans utover kvelden
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Historiske lokaler med ekte julestemning
-            </li>
-            <li class="room-feature">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Sentralt i Larvik — enkelt for alle å komme til
-            </li>
-          </ul>
-        </div>
+        <ul class="jb-facts reveal reveal-delay-1">
+          <li class="jb-fact">
+            <span class="jb-fact-value">Opptil 100</span>
+            <span class="jb-fact-label">gjester på julebord</span>
+          </li>
+          <li class="jb-fact">
+            <span class="jb-fact-value">Flere lokaler</span>
+            <span class="jb-fact-label">fra små grupper<br>til store selskaper</span>
+          </li>
+          <li class="jb-fact">
+            <span class="jb-fact-value">Fra 695,-</span>
+            <span class="jb-fact-label">julemeny fra<br>Ellings Restaurant</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -368,7 +305,9 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       <div class="section-header reveal">
         <p class="section-eyebrow">Fra Ellings Restaurant</p>
         <h2 class="section-title">Jule<em>menyen</em></h2>
-        <div class="section-divider"></div>
+        <div class="orn" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
+        </div>
       </div>
       <div class="julemeny-intro reveal">
         <p>Velg mellom tre 3-retters menyer eller vår juletapas — alt laget fra bunnen av med råvarer av høy kvalitet.</p>
@@ -461,74 +400,62 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
   </section>
 
   <!-- Gallery -->
-  <section class="room-gallery">
+  <section class="jb-gallery">
     <div class="container">
       <div class="section-header reveal">
         <p class="section-eyebrow">Lokalene</p>
         <h2 class="section-title">Stemning i <em>byens storstue</em></h2>
-        <div class="section-divider"></div>
+        <div class="orn" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
+        </div>
       </div>
-      <div class="room-gallery-grid reveal">
-        <div class="room-gallery-item tall">
+      <div class="jb-gallery-grid reveal">
+        <div class="jb-gallery-item tall">
           <img src="assets/images/festiviteten-festsalen.jpeg" alt="Festsalen på Festiviteten" loading="lazy">
         </div>
-        <div class="room-gallery-item">
+        <div class="jb-gallery-item">
           <img src="assets/images/festsalen-detail-1.jpg" alt="Detaljer fra Festsalen" loading="lazy">
         </div>
-        <div class="room-gallery-item">
+        <div class="jb-gallery-item">
           <img src="assets/images/staircase.jpg" alt="Trappen på Festiviteten" loading="lazy">
         </div>
-        <div class="room-gallery-item">
+        <div class="jb-gallery-item">
           <img src="assets/images/festsalen-detail-2.jpg" alt="Detaljer fra Festsalen" loading="lazy">
         </div>
-        <div class="room-gallery-item">
+        <div class="jb-gallery-item">
           <img src="assets/images/ellings-atmosfere.jpg" alt="Atmosfære fra Ellings Restaurant" loading="lazy">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Venue cards -->
-  <section class="venue-cards" id="lokaler">
+  <!-- Lokaler -->
+  <section class="jb-rooms" id="lokaler">
     <div class="container">
-      <div class="section-header reveal">
-        <p class="section-eyebrow">Våre lokaler</p>
-        <h2 class="section-title">Julebord i riktig <em>størrelse</em></h2>
-        <div class="section-divider"></div>
-      </div>
-      <div class="venue-grid">
-        <a href="/festsalen" class="venue-card reveal">
-          <div class="venue-card-img">
-            <img src="assets/images/festsalen-1.jpg" alt="Festsalen" loading="lazy">
-          </div>
-          <div class="venue-card-overlay"></div>
-          <div class="venue-card-info">
-            <div class="venue-card-name">Festsalen</div>
-            <div class="venue-card-detail">Det store julebordet — i Norges tredje eldste festsal</div>
-            <div class="venue-card-capacity">Julebord opptil 100 personer</div>
-          </div>
+      <div class="jb-rooms-grid reveal">
+        <a href="/festsalen" class="jb-room">
+          <p class="jb-room-cap">Opptil 100 personer</p>
+          <h3 class="jb-room-name">Festsalen</h3>
+          <p class="jb-room-desc">Det store julebordet, i Norges tredje eldste festsal.</p>
+          <span class="jb-room-link">Se lokalet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </a>
-        <a href="/borgermesteren" class="venue-card reveal reveal-delay-1">
-          <div class="venue-card-img">
-            <img src="assets/images/borgermesteren-1.jpg" alt="Borgermesteren" loading="lazy">
-          </div>
-          <div class="venue-card-overlay"></div>
-          <div class="venue-card-info">
-            <div class="venue-card-name">Borgermesteren</div>
-            <div class="venue-card-detail">Det intime julebordet — for den lille gruppen</div>
-            <div class="venue-card-capacity">Opptil 15 personer</div>
-          </div>
+        <a href="/kjell-bjarnes" class="jb-room">
+          <p class="jb-room-cap">Opptil 25 personer</p>
+          <h3 class="jb-room-name">Kjell Bjarnes</h3>
+          <p class="jb-room-desc">Det fleksible julebordet, for avdelingen eller vennegjengen.</p>
+          <span class="jb-room-link">Se lokalet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </a>
-        <a href="/kjell-bjarnes" class="venue-card reveal reveal-delay-2">
-          <div class="venue-card-img">
-            <img src="assets/images/kjellbjarnes.JPG" alt="Kjell Bjarnes" loading="lazy">
-          </div>
-          <div class="venue-card-overlay"></div>
-          <div class="venue-card-info">
-            <div class="venue-card-name">Kjell Bjarnes</div>
-            <div class="venue-card-detail">Det fleksible julebordet — for avdelingen eller vennegjengen</div>
-            <div class="venue-card-capacity">Opptil 25 personer</div>
-          </div>
+        <a href="/borgermesteren" class="jb-room">
+          <p class="jb-room-cap">Opptil 15 personer</p>
+          <h3 class="jb-room-name">Borgermesteren</h3>
+          <p class="jb-room-desc">Det intime julebordet, for den lille gruppen.</p>
+          <span class="jb-room-link">Se lokalet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
         </a>
       </div>
     </div>
@@ -540,7 +467,9 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       <div class="section-header reveal">
         <p class="section-eyebrow">Forespørsel</p>
         <h2 class="section-title">Book <em>julebord</em></h2>
-        <div class="section-divider"></div>
+        <div class="orn" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
+        </div>
       </div>
       <div class="booking-wrapper reveal">
         <form action="https://formspree.io/f/xvzblraz" method="POST" onsubmit="handleBookingSubmit(event)">
@@ -552,8 +481,8 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
               <select id="lokale" name="lokale">
                 <option value="">Velg lokale</option>
                 <option value="Festsalen (opptil 100 pers)">Festsalen (opptil 100 pers)</option>
-                <option value="Borgermesteren (opptil 15 pers)">Borgermesteren (opptil 15 pers)</option>
                 <option value="Kjell Bjarnes (opptil 25 pers)">Kjell Bjarnes (opptil 25 pers)</option>
+                <option value="Borgermesteren (opptil 15 pers)">Borgermesteren (opptil 15 pers)</option>
                 <option value="Usikker — ønsker rådgivning">Usikker — ønsker rådgivning</option>
               </select>
             </div>
