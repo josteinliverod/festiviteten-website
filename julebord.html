@@ -93,18 +93,13 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .jb-hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     /* Intro */
-    .jb-intro { padding: 7rem 0; background: var(--cream); }
-    .jb-intro-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 6rem; align-items: center; }
+    .jb-intro { padding: 7rem 0 6rem; background: var(--cream); }
+    .jb-intro-inner { max-width: 720px; margin: 0 auto; text-align: center; }
     .jb-intro-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
     .jb-intro-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; }
     .jb-intro-title em { font-style: italic; font-weight: 400; color: var(--gold); }
-    .jb-intro .orn { margin: 1.5rem 0; justify-content: flex-start; }
-    .jb-intro-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--muted); margin-bottom: 1.25rem; }
+    .jb-intro-text p { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--muted); margin-bottom: 1.25rem; text-wrap: balance; }
     .jb-intro-text p:last-child { margin-bottom: 0; }
-    .jb-facts { list-style: none; border-top: 1px solid rgba(196,149,106,0.25); }
-    .jb-fact { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 1.6rem 0; border-bottom: 1px solid rgba(196,149,106,0.25); }
-    .jb-fact-value { font-family: var(--serif); font-size: 2.1rem; font-weight: 400; color: var(--pine); line-height: 1.1; }
-    .jb-fact-label { font-size: 0.85rem; font-weight: 300; color: var(--muted); text-align: right; line-height: 1.5; }
 
     /* Julemeny */
     .julemeny { padding: 8rem 0; background: var(--pine); position: relative; overflow: hidden; }
@@ -141,16 +136,10 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
     .jb-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
     .jb-gallery-item:hover img { transform: scale(1.04); }
 
-    /* Lokaler */
-    .jb-rooms { padding: 0 0 8rem; background: var(--cream); }
-    .jb-rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(196,149,106,0.25); }
-    .jb-room { display: block; padding: 2.5rem 2rem 2.5rem 0; border-bottom: 1px solid rgba(196,149,106,0.25); transition: padding 0.4s var(--ease); }
-    .jb-room + .jb-room { padding-left: 2rem; border-left: 1px solid rgba(196,149,106,0.25); }
-    .jb-room-cap { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
-    .jb-room-name { font-family: var(--serif); font-size: 1.9rem; font-weight: 400; color: var(--charcoal); line-height: 1.15; margin-bottom: 0.4rem; }
-    .jb-room-desc { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
-    .jb-room-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); transition: gap 0.3s var(--ease); }
-    .jb-room:hover .jb-room-link { gap: 0.85rem; }
+    /* Avslutning */
+    .jb-closing { padding: 0 0 8rem; background: var(--cream); text-align: center; }
+    .jb-closing p { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 300; line-height: 1.45; max-width: 720px; margin: 0 auto; color: var(--charcoal); }
+    .jb-closing em { font-style: italic; font-weight: 400; color: var(--gold); }
 
     /* Booking */
     .booking { padding: 7rem 0 8rem; background: var(--blush-pale); }
@@ -182,7 +171,6 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .jb-intro-layout { grid-template-columns: 1fr; gap: 3.5rem; }
       .julemeny-grid { grid-template-columns: 1fr; max-width: 560px; }
       .julemeny-tapas-items { columns: 2; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -200,8 +188,7 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
       .jb-gallery { padding: 5rem 0 4rem; }
       .jb-gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; }
       .jb-gallery-item, .jb-gallery-item.tall { height: 240px; grid-row: auto; }
-      .jb-rooms-grid { grid-template-columns: 1fr; }
-      .jb-room, .jb-room + .jb-room { padding: 2rem 0; border-left: none; }
+      .jb-closing { padding: 0 0 5rem; }
       .julemeny-tapas-items { columns: 1; max-width: 300px; }
       .form-row { grid-template-columns: 1fr; }
       .booking { padding: 5rem 0; }
@@ -255,32 +242,16 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
   <!-- Intro -->
   <section class="jb-intro" id="om">
     <div class="container">
-      <div class="jb-intro-layout">
-        <div class="reveal">
-          <p class="jb-intro-eyebrow">Julebord</p>
-          <h2 class="jb-intro-title">Julestemning i en <em>historisk ramme</em></h2>
-          <div class="orn" aria-hidden="true">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
-          </div>
-          <div class="jb-intro-text">
-            <p>På Festiviteten kan vi tilby julebord for små og store bedrifter, venner og familie. Vi har flere møterom og lokaler, og tilpasser julebordet til akkurat deres gruppe — opptil 100 personer.</p>
-            <p>Ellings Restaurant står for maten, og vi hjelper gjerne med å skreddersy kvelden.</p>
-          </div>
+      <div class="jb-intro-inner reveal">
+        <p class="jb-intro-eyebrow">Julebord</p>
+        <h2 class="jb-intro-title">Julestemning i en <em>historisk ramme</em></h2>
+        <div class="orn" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
         </div>
-        <ul class="jb-facts reveal reveal-delay-1">
-          <li class="jb-fact">
-            <span class="jb-fact-value">Opptil 100</span>
-            <span class="jb-fact-label">gjester på julebord</span>
-          </li>
-          <li class="jb-fact">
-            <span class="jb-fact-value">Flere lokaler</span>
-            <span class="jb-fact-label">fra små grupper<br>til store selskaper</span>
-          </li>
-          <li class="jb-fact">
-            <span class="jb-fact-value">Fra 695,-</span>
-            <span class="jb-fact-label">julemeny fra<br>Ellings Restaurant</span>
-          </li>
-        </ul>
+        <div class="jb-intro-text">
+          <p>På Festiviteten kan vi tilby julebord for små og store bedrifter, venner og familie — opptil 100 personer.</p>
+          <p>Ellings står for maten, og vi hjelper gjerne med å skreddersy kvelden.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -289,7 +260,7 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
   <section class="julemeny" id="julemeny">
     <div class="container">
       <div class="section-header reveal">
-        <p class="section-eyebrow">Fra Ellings Restaurant</p>
+        <p class="section-eyebrow">Fra Ellings</p>
         <h2 class="section-title">Jule<em>menyen</em></h2>
         <div class="orn" aria-hidden="true">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>
@@ -409,41 +380,16 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
           <img src="assets/images/festsalen-detail-2.jpg" alt="Detaljer fra Festsalen" loading="lazy">
         </div>
         <div class="jb-gallery-item">
-          <img src="assets/images/ellings-atmosfere.jpg" alt="Atmosfære fra Ellings Restaurant" loading="lazy">
+          <img src="assets/images/ellings-atmosfere.jpg" alt="Atmosfære fra Ellings" loading="lazy">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Lokaler -->
-  <section class="jb-rooms" id="lokaler">
+  <!-- Avslutning -->
+  <section class="jb-closing">
     <div class="container">
-      <div class="jb-rooms-grid reveal">
-        <a href="/festsalen" class="jb-room">
-          <p class="jb-room-cap">Opptil 100 personer</p>
-          <h3 class="jb-room-name">Festsalen</h3>
-          <p class="jb-room-desc">Det store julebordet, i Norges tredje eldste festsal.</p>
-          <span class="jb-room-link">Se lokalet
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-        <a href="/kjell-bjarnes" class="jb-room">
-          <p class="jb-room-cap">Opptil 25 personer</p>
-          <h3 class="jb-room-name">Kjell Bjarnes</h3>
-          <p class="jb-room-desc">Det fleksible julebordet, for avdelingen eller vennegjengen.</p>
-          <span class="jb-room-link">Se lokalet
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-        <a href="/borgermesteren" class="jb-room">
-          <p class="jb-room-cap">Opptil 15 personer</p>
-          <h3 class="jb-room-name">Borgermesteren</h3>
-          <p class="jb-room-desc">Det intime julebordet, for den lille gruppen.</p>
-          <span class="jb-room-link">Se lokalet
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-      </div>
+      <p class="reveal">Vi har ulike lokaler i forskjellige størrelser, og <em>tilpasser</em> arrangementet etter ditt budsjett.</p>
     </div>
   </section>
 
@@ -544,7 +490,7 @@ src="https://www.facebook.com/tr?id=616999759808442&ev=PageView&noscript=1"
         <div class="footer-col">
           <h4>Utforsk</h4>
           <ul>
-            <li><a href="/#ellings">Ellings Restaurant</a></li>
+            <li><a href="/#ellings">Ellings</a></li>
             <li><a href="/julebord">Julebord</a></li>
             <li><a href="/menyer">Selskapsmenyer</a></li>
             <li><a href="/kontor">Kontorer</a></li>
